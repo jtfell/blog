@@ -47,13 +47,14 @@ The sticky part is that because this information is cached in the browser, it
 can be repurposed.
 
 There are multiple ways to take advantage of this cache for user identification
-(see here for a more in-depth discussion), but the naive way to achieve it is to
-have lots of domains with an endpoint that simply returns an empty response with
-the HSTS header set and fails to respond at all over http. For this example, lets
-assume we own the domain sneaky-hsts.com and have set up `0.sneaky-hsts.com/api`,
+(see [here](http://www.radicalresearch.co.uk/lab/hstssupercookies/) for a more
+in-depth discussion), but the naive way to achieve it is to have lots of domains
+with an endpoint that simply returns an empty response with the HSTS header
+set and fails to respond at all over http. For this example, lets assume we own 
+the domain `sneaky-hsts.com` and have set up `0.sneaky-hsts.com/api`,
 `1.sneaky-hsts.com/api`... `7.sneaky-hsts.com/api` with this behaviour.
 
-![HSTS Exploit Architecture](/images/architecture.png)
+![](/images/architecture.png)
 
 On the client we generate a hexadecimal user ID (lets use `4F`). With other methods
 we would just store this in a third-party cookie or local-storage cross-domain
@@ -92,21 +93,21 @@ to the response headers through API Gateway. It allows us to route HTTP
 requests to the lambda function. It needs to be configured to map max-age
 to the correct header and to allow lenient CORS headers.
 
-![API Gateway Headers](/images/headers.png)
+![](/images/headers.png)
 
 Annoyingly, API Gateway doesn’t work with wildcard custom domains (but still
 allows you to enter them into the console) so I had to configure a custom
 domain for every. individual. domain. Go on, get clicking (note the 0, 1
 and 2 subdomains in the screenshot).
 
-![API Gateway Routing](/images/routes.png)
+![](/images/routes.png)
 
 Finally, Route53 can route each subdomain to the corresponding Cloudfront
 distribution from API Gateway. The fruits of our configuration labour
 should now look something like this, with our poor little friend being tracked
 out in front.
 
-![HSTS Exploit Architecture](/images/serverless-supercookes/architecture.png)
+![](/images/architecture.png)
 
 Essentially, Cloudfront is pretending to be lots of domains so we can store
 lots of bits in the browsers HSTS cache (1 bit per domain). Now that we have

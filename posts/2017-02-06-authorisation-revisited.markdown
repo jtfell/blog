@@ -23,9 +23,10 @@ in this space just waiting to be mined.
 
 As I began to understand the high level structure of a GraphQL server, I wonder
 how to avoid making a separate database request for every field in the schema.
-I was not alone in this. I came across the brilliant dataloader library from
-Facebook and the way forward became clear. The genius at the heart of dataloader
-is in how it leverages the structure of the resolver functions. It unlocks
+I was not alone in this. I came across the brilliant 
+[dataloader](https://github.com/facebook/dataloader) library from Facebook and
+the way forward became clear. The genius at the heart of dataloader is
+in how it leverages the structure of the resolver functions. It unlocks
 improved performance through batching and cacheing database requests with
 hardly any abstraction overhead.
 
@@ -51,9 +52,11 @@ and you can have multiple optimisation strategies to gain maximum performance
 for queries of any size and nature.
 
 If you will excuse the shameless plug (you knew it was coming), my new library
-authorizr attempts to enable some of these optimisations. It’s in use on the
-new GraphQL project I’m working on and has been a revelation in abstracting
-away the nitty gritty of permissions tables etc and exposing a simple API.
+[authorizr](https://github.com/jtfell/authorizr) attempts to enable some of
+these optimisations. It’s in use on the new GraphQL project I’m working on and
+has been a revelation in abstracting away the nitty gritty of permissions tables
+etc and exposing a simple API.
+
 This in turn makes the resolver functions easy to reason about. There are some
 similarities with the philosophy of dataloader and for this reason the two
 libraries play well together. But as with any new development, there are always
@@ -69,4 +72,4 @@ but maybe someone smarter than me will have a game changing idea and submit a PR
 for it (hint, hint).
 
 Unsolved problems aside, there is much to be excited about in the GraphQL server
-space! Thanks for reading and please feel free to leave a comment.
+space!

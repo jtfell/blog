@@ -5,11 +5,10 @@ title: How Pretty Is Your CSS?
 ## How Pretty Is Your CSS
 
 There are already a few apps out there that analyse stylesheets (my
-favourite is cssstats.com), but they’re focused on how well structured
-the code is. Sure it’s nice to know how maintainable your CSS is, but
-I want more; I want to know how pretty it will make my page. I mean, 
-thats the end game isn’t it?
-
+favourite is [cssstats](http://cssstats.com)), but they’re focused on
+how well structured the code is. Sure it’s nice to know how maintainable
+your CSS is, but I want more; I want to know how pretty it will make my
+page. I mean, thats the end game isn’t it?
 
 The aesthetic quality of a page is governed by mathematical rules. These
 rules can be harnessed to improve your page layouts even if you have minimal
@@ -19,7 +18,6 @@ Of course, there are far too many subtleties in how CSS declarations make a
 page look and feel to confidently say one layout is better than another
 based off some arbitrary metrics, but I’m down for a challenge and the
 insights it will bring.
-
 
 To pick a one rule out of a sea of options, let’s tackle validating modular
 scales (every font size on a page should be related by a single ratio). Let’s
@@ -35,10 +33,11 @@ From this we will calculate:
 - What the ratio is (if it exists)
 
 ### Working Backwards
-Over at type-scale.com you can pick a base and ratio, and get back a nice little
-CSS snippet. This will do nicely as a test-case to see if we can work backwards
-to the values used as an input. I fired it up with a base size of 1em and ratio
-of 1.5 to keep things simple and got this little snippet back.
+Over at [type-scale.com](http://type-scale.com) you can pick a base and ratio,
+and get back a nice little CSS snippet. This will do nicely as a test-case to
+see if we can work backwards to the values used as an input. I fired it up with
+a base size of 1em and ratio of 1.5 to keep things simple and got this little
+snippet back.
 
 ```css
 html {font-size: 1em;}
@@ -98,8 +97,8 @@ module.exports = function(css) {
 };
 ```
 
-Note the two major steps to be filled in, findFontSizeDecl and calculateRatio.
-Let’s kick it off with step 1. We’re just pulling out all the font-size
+Note the two major steps to be filled in, `findFontSizeDecl` and `calculateRatio`.
+Let’s kick it off with step 1. We’re just pulling out all the `font-size`
 declarations out of the CSS and making a list of relative values. I’ve made
 some serious simplifications here as calculating the pixel height of em is
 way out of the scope of this experiment.
@@ -164,8 +163,11 @@ analyse(css);
 ```
 
 As promised, we get back the ratio we started with and a “fit” value close
-to one. So far, so good. The true test will be analysing some real CSS
-frameworks though.
+to one. So far, so good.
+
+### Showdown
+
+The true test will be analysing some real CSS frameworks.
 
 ```
 Basscss:    ratio: 1.212, fit: 0.9921
@@ -183,5 +185,4 @@ to commit to them for a new project. If nothing else, finding answers to
 these questions might lend some insight into how to get the most out of 
 your framework of choice.
 
-That’s all I have for now, you can take a look at my code here. I’d love to
-hear from anyone going down a similar path!
+That’s all I have for now, you can take a look at my code [here](https://github.com/jtfell/style-analytics).
