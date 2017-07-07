@@ -120,8 +120,8 @@
 <span class="kw">function</span> <span class="at">setId</span>() <span class="op">{</span>
 
   <span class="co">// Generate a fresh ID</span>
-  <span class="kw">var</span> id <span class="op">=</span> <span class="at">guid</span>()<span class="op">;</span>
-  <span class="kw">var</span> binId <span class="op">=</span> <span class="at">guid2bin</span>(id)<span class="op">;</span>
+  <span class="kw">var</span> id <span class="op">=</span> <span class="at">genId</span>()<span class="op">;</span>
+  <span class="kw">var</span> binId <span class="op">=</span> <span class="at">hex2bin</span>(id)<span class="op">;</span>
 
   <span class="co">// Set the _supercookie_ using our lambda HSTS magic</span>
   <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">binId</span>.<span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span>
