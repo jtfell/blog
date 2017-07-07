@@ -26,7 +26,7 @@
 </div>
 
 <h2 id="how-pretty-is-your-css">How Pretty Is Your CSS</h2>
-<p>There are already a few apps out there that analyse stylesheets (my favourite is cssstats.com), but they’re focused on how well structured the code is. Sure it’s nice to know how maintainable your CSS is, but I want more; I want to know how pretty it will make my page. I mean, thats the end game isn’t it?</p>
+<p>There are already a few apps out there that analyse stylesheets (my favourite is <a href="http://cssstats.com">cssstats</a>), but they’re focused on how well structured the code is. Sure it’s nice to know how maintainable your CSS is, but I want more; I want to know how pretty it will make my page. I mean, thats the end game isn’t it?</p>
 <p>The aesthetic quality of a page is governed by mathematical rules. These rules can be harnessed to improve your page layouts even if you have minimal design experience or intuition (me). I’m proposing that we try to compare how well certain CSS frameworks adhere to some of the basic rules of design. Of course, there are far too many subtleties in how CSS declarations make a page look and feel to confidently say one layout is better than another based off some arbitrary metrics, but I’m down for a challenge and the insights it will bring.</p>
 <p>To pick a one rule out of a sea of options, let’s tackle validating modular scales (every font size on a page should be related by a single ratio). Let’s decide on a scope up front to keep this achievable.</p>
 <ul>
@@ -40,7 +40,7 @@
 <li>What the ratio is (if it exists)</li>
 </ul>
 <h3 id="working-backwards">Working Backwards</h3>
-<p>Over at type-scale.com you can pick a base and ratio, and get back a nice little CSS snippet. This will do nicely as a test-case to see if we can work backwards to the values used as an input. I fired it up with a base size of 1em and ratio of 1.5 to keep things simple and got this little snippet back.</p>
+<p>Over at <a href="http://type-scale.com">type-scale.com</a> you can pick a base and ratio, and get back a nice little CSS snippet. This will do nicely as a test-case to see if we can work backwards to the values used as an input. I fired it up with a base size of 1em and ratio of 1.5 to keep things simple and got this little snippet back.</p>
 <div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css">html <span class="kw">{font-size:</span> <span class="dt">1em</span><span class="kw">;}</span>
 
 body <span class="kw">{</span>
@@ -88,7 +88,7 @@ small, <span class="fl">.font_small</span> <span class="kw">{font-size:</span> <
   
   <span class="va">console</span>.<span class="at">log</span>(results)<span class="op">;</span>
 <span class="op">};</span></code></pre></div>
-<p>Note the two major steps to be filled in, findFontSizeDecl and calculateRatio. Let’s kick it off with step 1. We’re just pulling out all the font-size declarations out of the CSS and making a list of relative values. I’ve made some serious simplifications here as calculating the pixel height of em is way out of the scope of this experiment.</p>
+<p>Note the two major steps to be filled in, <code>findFontSizeDecl</code> and <code>calculateRatio</code>. Let’s kick it off with step 1. We’re just pulling out all the <code>font-size</code> declarations out of the CSS and making a list of relative values. I’ve made some serious simplifications here as calculating the pixel height of em is way out of the scope of this experiment.</p>
 <div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">findFontSizeDecl</span>(root) <span class="op">{</span>
   <span class="kw">var</span> vals <span class="op">=</span> []<span class="op">;</span>
 
@@ -134,13 +134,15 @@ small, <span class="fl">.font_small</span> <span class="kw">{font-size:</span> <
 
 <span class="co">// Prints:</span>
 <span class="co">// { ratio: 1.4999140493583407, fit: 0.9999999752384222 }</span></code></pre></div>
-<p>As promised, we get back the ratio we started with and a “fit” value close to one. So far, so good. The true test will be analysing some real CSS frameworks though.</p>
+<p>As promised, we get back the ratio we started with and a “fit” value close to one. So far, so good.</p>
+<h3 id="showdown">Showdown</h3>
+<p>The true test will be analysing some real CSS frameworks.</p>
 <pre><code>Basscss:    ratio: 1.212, fit: 0.9921
 Foundation: ratio: 1.097, fit: 0.9821
 Bootstrap:  ratio: 1.121, fit: 0.9653
 Pure:       ratio: 1.360, fit: 0.9170</code></pre>
 <p>Does this mean that Foundation is better than Bootstrap? You be the judge. It would be a little hasty to draw too many conclusions from these results without looking deeper into why certain frameworks do not strictly follow modular scales. Undoubtedly there are good reasons, edge cases or stylistic preferences. All I know is that I want to know what these are if I’m going to commit to them for a new project. If nothing else, finding answers to these questions might lend some insight into how to get the most out of your framework of choice.</p>
-<p>That’s all I have for now, you can take a look at my code here. I’d love to hear from anyone going down a similar path!</p>
+<p>That’s all I have for now, you can take a look at my code <a href="https://github.com/jtfell/style-analytics">here</a>.</p>
 
         </div>
         <div id="footer">

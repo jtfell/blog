@@ -35,8 +35,8 @@
 <p>On the surface this sounds great. It will help people to avoid visiting sites with sensitive information over an unencrypted connection by accident. Terrific. The sticky part is that because this information is cached in the browser, it can be repurposed.</p>
 <p>There are multiple ways to take advantage of this cache for user identification (see here for a more in-depth discussion), but the naive way to achieve it is to have lots of domains with an endpoint that simply returns an empty response with the HSTS header set and fails to respond at all over http. For this example, lets assume we own the domain sneaky-hsts.com and have set up <code>0.sneaky-hsts.com/api</code>, <code>1.sneaky-hsts.com/api</code>… <code>7.sneaky-hsts.com/api</code> with this behaviour.</p>
 <div class="figure">
-<img src="../images/architecture.png" alt="HSTS Exploit Architecture" />
-<p class="caption">HSTS Exploit Architecture</p>
+<img src="../images/architecture.png" />
+
 </div>
 <p>On the client we generate a hexadecimal user ID (lets use <code>4F</code>). With other methods we would just store this in a third-party cookie or local-storage cross-domain iframe so we could pluck it out later. In this case we convert it to binary (<code>01001111</code>) and each bit represents one of our 8 domains. If a bit is a 1, we send a request to https://n.sneaky-hsts.com/api and if its a 0 we don’t.</p>
 <p>Next time this device loads our script it can now attempt to load the http version of each of our domains. The domains that were connected to earlier will be accessed via https (because of our HSTS cache) and the others will fail to connect as our servers won’t respond to HTTP requests. Based on the successful requests and unsuccessful requests, we can now reconstruct our user ID. Failed requests are zeros and successful requests are ones.</p>
@@ -50,18 +50,18 @@
 <span class="op">};</span></code></pre></div>
 <p>The key that is returned isn’t special in itself, but we can easily map it to the response headers through API Gateway. It allows us to route HTTP requests to the lambda function. It needs to be configured to map max-age to the correct header and to allow lenient CORS headers.</p>
 <div class="figure">
-<img src="../images/headers.png" alt="API Gateway Headers" />
-<p class="caption">API Gateway Headers</p>
+<img src="../images/headers.png" />
+
 </div>
 <p>Annoyingly, API Gateway doesn’t work with wildcard custom domains (but still allows you to enter them into the console) so I had to configure a custom domain for every. individual. domain. Go on, get clicking (note the 0, 1 and 2 subdomains in the screenshot).</p>
 <div class="figure">
-<img src="../images/routes.png" alt="API Gateway Routing" />
-<p class="caption">API Gateway Routing</p>
+<img src="../images/routes.png" />
+
 </div>
 <p>Finally, Route53 can route each subdomain to the corresponding Cloudfront distribution from API Gateway. The fruits of our configuration labour should now look something like this, with our poor little friend being tracked out in front.</p>
 <div class="figure">
-<img src="../images/serverless-supercookes/architecture.png" alt="HSTS Exploit Architecture" />
-<p class="caption">HSTS Exploit Architecture</p>
+<img src="../images/serverless-supercookes/architecture.png" />
+
 </div>
 <p>Essentially, Cloudfront is pretending to be lots of domains so we can store lots of bits in the browsers HSTS cache (1 bit per domain). Now that we have the infrastructure we need to store our user IDs, all we need is the client code to expose a cross-domain ID store to our javascript tag.</p>
 <p>First, we need a few helper functions to generate IDs and convert between hex and binary representation. Note that I’m using 4 bit IDs for brevity but this approach can be easily extended to more bits.</p>
