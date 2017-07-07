@@ -2,8 +2,6 @@
 title: Serverless Supercookies
 ---
 
-## Serverless Supercookies
-
 Browser privacy has been getting a lot of attention lately. It’sgetting
 harder and harder to navigate the web without leaking personal data to
 the gremlins lurking in the dark corners or your favourite website.
@@ -167,7 +165,7 @@ Finally we can define some (very primitive) functions for setting and getting ID
 purely through the HSTS cache. These could be defined more elegantly but they clearly
 show how it all works.
 
-```
+```js
 function getId(cb) {
   checkBit(0, function (bit0) {
     checkBit(1, function (bit1) {

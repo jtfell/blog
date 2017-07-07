@@ -2,8 +2,6 @@
 title: How Pretty Is Your CSS?
 ---
 
-## How Pretty Is Your CSS
-
 There are already a few apps out there that analyse stylesheets (my
 favourite is [cssstats](http://cssstats.com)), but they’re focused on
 how well structured the code is. Sure it’s nice to know how maintainable

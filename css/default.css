@@ -1,20 +1,20 @@
 body {
     color: black;
     font-size: 16px;
+    font-family: Roboto, sans-serif;
     margin: 0px auto 0px auto;
     width: 600px;
 }
 
 div#header {
-    border-bottom: 2px solid black;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
     padding: 12px 0px 12px 0px;
 }
 
 div#logo a {
     color: black;
     float: left;
-    font-size: 18px;
+    font-size: 2rem;
     font-weight: bold;
     text-decoration: none;
 }
@@ -33,7 +33,6 @@ div#header #navigation a {
 }
 
 div#footer {
-    border-top: solid 2px black;
     color: #555;
     font-size: 12px;
     margin-top: 30px;

@@ -2,8 +2,6 @@
 title: Authorisation Revisited
 ---
 
-## Authorisation Revisited
-
 With the emergence of any new programming paradigm, there are opportunities
 to take a fresh approach to old problems. Well established best-practices
 can be improved upon with new tools and more information available to the
