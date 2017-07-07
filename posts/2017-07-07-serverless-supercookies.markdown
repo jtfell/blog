@@ -92,21 +92,21 @@ to the response headers through API Gateway. It allows us to route HTTP
 requests to the lambda function. It needs to be configured to map max-age
 to the correct header and to allow lenient CORS headers.
 
-![API Gateway Headers](../images/serverless-supercookes/headers.png)
+![API Gateway Headers](/images/serverless-supercookes/headers.png)
 
 Annoyingly, API Gateway doesn’t work with wildcard custom domains (but still
 allows you to enter them into the console) so I had to configure a custom
 domain for every. individual. domain. Go on, get clicking (note the 0, 1
 and 2 subdomains in the screenshot).
 
-![API Gateway Routing](../images/serverless-supercookes/routes.png)
+![API Gateway Routing](/images/serverless-supercookes/routes.png)
 
 Finally, Route53 can route each subdomain to the corresponding Cloudfront
 distribution from API Gateway. The fruits of our configuration labour
 should now look something like this, with our poor little friend being tracked
 out in front.
 
-![HSTS Exploit Architecture](../images/serverless-supercookes/architecture.png)
+![HSTS Exploit Architecture](/images/serverless-supercookes/architecture.png)
 
 Essentially, Cloudfront is pretending to be lots of domains so we can store
 lots of bits in the browsers HSTS cache (1 bit per domain). Now that we have
