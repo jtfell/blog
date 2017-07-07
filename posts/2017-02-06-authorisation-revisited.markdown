@@ -65,7 +65,7 @@ from the cache, authorizr needs to be able to react to changes in permissions
 and data. The best approach for this is less clear for an authorisation mechanism
 with no constraints on the structure of application data than for a cacheing
 mechanism. Finding a clean way of going about this is yet to materialise for me
-but maybe someone smarter than me will have a game changing idea and submita PR
+but maybe someone smarter than me will have a game changing idea and submit a PR
 for it (hint, hint).
 
 Unsolved problems aside, there is much to be excited about in the GraphQL server
