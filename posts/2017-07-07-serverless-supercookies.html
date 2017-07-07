@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Julian Fell - Serverless Supercookies</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="https://jtfell.github.io">Julian Fell</a>
+            </div>
+            <div id="navigation">
+                <a href="../index.html">Home</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Serverless Supercookies</h1>
+
+            <div class="info">
+    Posted on July  7, 2017
+    
+</div>
+
+<h2 id="serverless-supercookies">Serverless Supercookies</h2>
+<p>Browser privacy has been getting a lot of attention lately. It’sgetting harder and harder to navigate the web without leaking personal data to the gremlins lurking in the dark corners or your favourite website.</p>
+<p>In some ways Safari leads the way in protecting user privacy through their default disabling of third-party cookies, while it has to be explicitly activated in Chrome and Firefox. The feature I’m interested in amongst the complex and is that choosing this setting causes the browser to sandbox all storage within each domain so you can identify a returning user to your site, but not who they are when they show up again elsewhere. This presents an issue for the people who want to track your online behaviour so they can show you ads for things that you might buy.</p>
+<p>The ability get around this little roadblock is extremely valuable to advertisers and analytics vendors as it offers a competitive edge in a saturated market. Naturally, when the straightforward methods of identifying users are blocked, they get their developers to turn to more creative methods.</p>
+<p>Fingerprinting is an option, but is well known to be ineffective on homogenous iPhones on 3G connections. Imagine 30 people on the latest iOS, with the latest iPhone on the same train to work in the morning. Fingerprinting is essentially useless for telling them apart thanks to the minimal customisation available.</p>
+<p>Okay, so the conventional browser storage methods are sandboxed and the devices themselves aren’t individual enough to be reliably differentiated. Where to from here? As you may have guessed from the title, the answer is to hacks involving HTTPS protocols of course!</p>
+<p>A bit of background; the protocol we will be exploiting is the HTTP Strict Transport Security (HSTS) protocol. The idea of this protocol is that a server can send back a header instructing the browser to access its domain via https next time it is visited, even requests the http version. In this scenario, the browser reacts with a 307 (internal redirect) when it sees that it has received this header from the domain in the past.</p>
+<p>On the surface this sounds great. It will help people to avoid visiting sites with sensitive information over an unencrypted connection by accident. Terrific. The sticky part is that because this information is cached in the browser, it can be repurposed.</p>
+<p>There are multiple ways to take advantage of this cache for user identification (see here for a more in-depth discussion), but the naive way to achieve it is to have lots of domains with an endpoint that simply returns an empty response with the HSTS header set and fails to respond at all over http. For this example, lets assume we own the domain sneaky-hsts.com and have set up <code>0.sneaky-hsts.com/api</code>, <code>1.sneaky-hsts.com/api</code>… <code>7.sneaky-hsts.com/api</code> with this behaviour.</p>
+<div class="figure">
+<img src="../images/serverless-supercookes/architecture.png" alt="HSTS Exploit Architecture" />
+<p class="caption">HSTS Exploit Architecture</p>
+</div>
+<p>On the client we generate a hexadecimal user ID (lets use <code>4F</code>). With other methods we would just store this in a third-party cookie or local-storage cross-domain iframe so we could pluck it out later. In this case we convert it to binary (<code>01001111</code>) and each bit represents one of our 8 domains. If a bit is a 1, we send a request to https://n.sneaky-hsts.com/api and if its a 0 we don’t.</p>
+<p>Next time this device loads our script it can now attempt to load the http version of each of our domains. The domains that were connected to earlier will be accessed via https (because of our HSTS cache) and the others will fail to connect as our servers won’t respond to HTTP requests. Based on the successful requests and unsuccessful requests, we can now reconstruct our user ID. Failed requests are zeros and successful requests are ones.</p>
+<h3 id="doing-it-for-reals">Doing it for reals</h3>
+<p>Phew, that was a super quick rundown on the mechanics on this method for identifying users across multiple domains. Let’s get to using AWS Lambda for a real-life implementation using the serverless infrastructure of the future!</p>
+<p>The first step is to setup a wildcard SSL certificate using Certificate Manager for <code>*.sneaky-hsts.com</code>. Next, we need a single lambda function that returns a max-age value for my HSTS header.</p>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="va">exports</span>.<span class="at">handler</span> <span class="op">=</span> (event<span class="op">,</span> context<span class="op">,</span> callback) <span class="op">=&gt;</span> <span class="op">{</span>
+  <span class="at">callback</span>(<span class="kw">null</span><span class="op">,</span> <span class="op">{</span>
+    <span class="dt">hsts</span><span class="op">:</span> <span class="st">'max-age=31536000'</span>
+  <span class="op">}</span>)<span class="op">;</span>
+<span class="op">};</span></code></pre></div>
+<p>The key that is returned isn’t special in itself, but we can easily map it to the response headers through API Gateway. It allows us to route HTTP requests to the lambda function. It needs to be configured to map max-age to the correct header and to allow lenient CORS headers.</p>
+<div class="figure">
+<img src="../images/serverless-supercookes/headers.png" alt="API Gateway Headers" />
+<p class="caption">API Gateway Headers</p>
+</div>
+<p>Annoyingly, API Gateway doesn’t work with wildcard custom domains (but still allows you to enter them into the console) so I had to configure a custom domain for every. individual. domain. Go on, get clicking (note the 0, 1 and 2 subdomains in the screenshot).</p>
+<div class="figure">
+<img src="../images/serverless-supercookes/routes.png" alt="API Gateway Routing" />
+<p class="caption">API Gateway Routing</p>
+</div>
+<p>Finally, Route53 can route each subdomain to the corresponding Cloudfront distribution from API Gateway. The fruits of our configuration labour should now look something like this, with our poor little friend being tracked out in front.</p>
+<div class="figure">
+<img src="../images/serverless-supercookes/architecture.png" alt="HSTS Exploit Architecture" />
+<p class="caption">HSTS Exploit Architecture</p>
+</div>
+<p>Essentially, Cloudfront is pretending to be lots of domains so we can store lots of bits in the browsers HSTS cache (1 bit per domain). Now that we have the infrastructure we need to store our user IDs, all we need is the client code to expose a cross-domain ID store to our javascript tag.</p>
+<p>First, we need a few helper functions to generate IDs and convert between hex and binary representation. Note that I’m using 4 bit IDs for brevity but this approach can be easily extended to more bits.</p>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">genId</span>() <span class="op">{</span>
+  <span class="cf">return</span> <span class="va">Math</span>.<span class="at">floor</span>((<span class="dv">1</span> <span class="op">+</span> <span class="va">Math</span>.<span class="at">random</span>()) <span class="op">*</span> <span class="bn">0x10000</span>)
+    .<span class="at">toString</span>(<span class="dv">16</span>)
+    .<span class="at">substring</span>(<span class="dv">1</span>)<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="kw">function</span> <span class="at">bin2hex</span>(num) <span class="op">{</span>
+  <span class="cf">return</span> <span class="at">parseInt</span>(num<span class="op">,</span> <span class="dv">2</span>).<span class="at">toString</span>(<span class="dv">4</span>)<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="kw">function</span> <span class="at">hex2bin</span>(num) <span class="op">{</span>
+  <span class="cf">return</span> <span class="at">parseInt</span>(num<span class="op">,</span> <span class="dv">4</span>).<span class="at">toString</span>(<span class="dv">2</span>)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+<p>Next we can define some functions for setting and checking bits against the server we have setup.</p>
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">var</span> $ <span class="op">=</span> <span class="at">require</span>(<span class="st">'jquery'</span>)<span class="op">;</span>
+<span class="kw">var</span> DOMAIN <span class="op">=</span> <span class="st">'example-domain.com'</span><span class="op">;</span>
+
+<span class="co">/**</span>
+<span class="co"> * Request the http version of the subdomain, and if the request is successful it</span>
+<span class="co"> * means we it has HSTS cache set (encoded as a 1). If its unsuccessful, it doesn't</span>
+<span class="co"> * have the HSTS cache set (encdoed as a 0).</span>
+<span class="co"> */</span>
+<span class="kw">function</span> <span class="at">checkBit</span>(bit<span class="op">,</span> cb) <span class="op">{</span>
+  <span class="va">$</span>.<span class="at">get</span>(<span class="st">'http://'</span> <span class="op">+</span> bit <span class="op">+</span> <span class="st">'.'</span> <span class="op">+</span> DOMAIN)
+    .<span class="at">done</span>(<span class="kw">function</span> () <span class="op">{</span> <span class="at">cb</span>(<span class="dv">1</span>)<span class="op">;</span> <span class="op">}</span>)
+    .<span class="at">fail</span>(<span class="kw">function</span> () <span class="op">{</span> <span class="at">cb</span>(<span class="dv">0</span>)<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="co">/**</span>
+<span class="co"> * Request the https version of the subdomain for every 1 in the id. This will set</span>
+<span class="co"> * the HSTS cache.</span>
+<span class="co"> */</span>
+<span class="kw">function</span> <span class="at">setBit</span>(binId<span class="op">,</span> bit) <span class="op">{</span>
+  <span class="cf">if</span> (<span class="va">binId</span>.<span class="at">charAt</span>(bit) <span class="op">===</span> <span class="st">'1'</span>) <span class="op">{</span>
+    <span class="va">$</span>.<span class="at">ajax</span>(<span class="st">'https://'</span> <span class="op">+</span> bit <span class="op">+</span> <span class="st">'.'</span> <span class="op">+</span> DOMAIN)<span class="op">;</span>
+  <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+<p>Finally we can define some (very primitive) functions for setting and getting IDs purely through the HSTS cache. These could be defined more elegantly but they clearly show how it all works.</p>
+<pre><code>function getId(cb) {
+  checkBit(0, function (bit0) {
+    checkBit(1, function (bit1) {
+      checkBit(2, function (bit2) {
+        checkBit(3, function (bit3) {
+          var binId = [bit0, bit1, bit2, bit3].join('');
+          cb(bin2hex(binId));
+        });
+      });
+    });
+  });
+}
+
+function setId() {
+
+  // Generate a fresh ID
+  var id = guid();
+  var binId = guid2bin(id);
+
+  // Set the _supercookie_ using our lambda HSTS magic
+  for (var i = 0; i &lt; binId.length; i++) {
+    setBit(binId, i);
+  }
+
+  // Return the original HEX ID
+  return id;
+}</code></pre>
+<p>As we can only store a limited number of bits with this method, doing anything useful with this identification would involve saving these IDs serverside along with the information you can glean from their activity across the web.</p>
+<h3 id="not-sofast..">Not so fast..</h3>
+<p>It is important that the ethical implications of purposely circumventing user privacy settings aren’t missed in the haze of new shiny things. This is a particularly crafty way of getting the information that advertisers want and uses bleeding edge tech to accomplish it easily, but it is still an invasion of user privacy. It is actively circumventing the security settings enforced by the user’s choice of browser. Visibility on privacy and security issues need to be made public so that users are equipped to protect themselves from them, so hopefully reading this will have made something think a little harder about the part they play in this. User or developer, like it or this applies to us all.</p>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>
