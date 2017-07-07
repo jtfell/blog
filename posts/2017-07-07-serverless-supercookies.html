@@ -5,6 +5,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Julian Fell - Serverless Supercookies</title>
         <link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="stylesheet" type="text/css" href="../css/pandoc.css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,700" rel="stylesheet">
     </head>
     <body>
         <div id="header">
@@ -25,7 +27,6 @@
     
 </div>
 
-<h2 id="serverless-supercookies">Serverless Supercookies</h2>
 <p>Browser privacy has been getting a lot of attention lately. It’sgetting harder and harder to navigate the web without leaking personal data to the gremlins lurking in the dark corners or your favourite website.</p>
 <p>In some ways Safari leads the way in protecting user privacy through their default disabling of third-party cookies, while it has to be explicitly activated in Chrome and Firefox. The feature I’m interested in amongst the complex and is that choosing this setting causes the browser to sandbox all storage within each domain so you can identify a returning user to your site, but not who they are when they show up again elsewhere. This presents an issue for the people who want to track your online behaviour so they can show you ads for things that you might buy.</p>
 <p>The ability get around this little roadblock is extremely valuable to advertisers and analytics vendors as it offers a competitive edge in a saturated market. Naturally, when the straightforward methods of identifying users are blocked, they get their developers to turn to more creative methods.</p>
@@ -33,7 +34,7 @@
 <p>Okay, so the conventional browser storage methods are sandboxed and the devices themselves aren’t individual enough to be reliably differentiated. Where to from here? As you may have guessed from the title, the answer is to hacks involving HTTPS protocols of course!</p>
 <p>A bit of background; the protocol we will be exploiting is the HTTP Strict Transport Security (HSTS) protocol. The idea of this protocol is that a server can send back a header instructing the browser to access its domain via https next time it is visited, even requests the http version. In this scenario, the browser reacts with a 307 (internal redirect) when it sees that it has received this header from the domain in the past.</p>
 <p>On the surface this sounds great. It will help people to avoid visiting sites with sensitive information over an unencrypted connection by accident. Terrific. The sticky part is that because this information is cached in the browser, it can be repurposed.</p>
-<p>There are multiple ways to take advantage of this cache for user identification (see here for a more in-depth discussion), but the naive way to achieve it is to have lots of domains with an endpoint that simply returns an empty response with the HSTS header set and fails to respond at all over http. For this example, lets assume we own the domain sneaky-hsts.com and have set up <code>0.sneaky-hsts.com/api</code>, <code>1.sneaky-hsts.com/api</code>… <code>7.sneaky-hsts.com/api</code> with this behaviour.</p>
+<p>There are multiple ways to take advantage of this cache for user identification (see <a href="http://www.radicalresearch.co.uk/lab/hstssupercookies/">here</a> for a more in-depth discussion), but the naive way to achieve it is to have lots of domains with an endpoint that simply returns an empty response with the HSTS header set and fails to respond at all over http. For this example, lets assume we own the domain <code>sneaky-hsts.com</code> and have set up <code>0.sneaky-hsts.com/api</code>, <code>1.sneaky-hsts.com/api</code>… <code>7.sneaky-hsts.com/api</code> with this behaviour.</p>
 <div class="figure">
 <img src="../images/architecture.png" />
 
@@ -60,7 +61,7 @@
 </div>
 <p>Finally, Route53 can route each subdomain to the corresponding Cloudfront distribution from API Gateway. The fruits of our configuration labour should now look something like this, with our poor little friend being tracked out in front.</p>
 <div class="figure">
-<img src="../images/serverless-supercookes/architecture.png" />
+<img src="../images/architecture.png" />
 
 </div>
 <p>Essentially, Cloudfront is pretending to be lots of domains so we can store lots of bits in the browsers HSTS cache (1 bit per domain). Now that we have the infrastructure we need to store our user IDs, all we need is the client code to expose a cross-domain ID store to our javascript tag.</p>
@@ -103,33 +104,33 @@
   <span class="op">}</span>
 <span class="op">}</span></code></pre></div>
 <p>Finally we can define some (very primitive) functions for setting and getting IDs purely through the HSTS cache. These could be defined more elegantly but they clearly show how it all works.</p>
-<pre><code>function getId(cb) {
-  checkBit(0, function (bit0) {
-    checkBit(1, function (bit1) {
-      checkBit(2, function (bit2) {
-        checkBit(3, function (bit3) {
-          var binId = [bit0, bit1, bit2, bit3].join('');
-          cb(bin2hex(binId));
-        });
-      });
-    });
-  });
-}
+<div class="sourceCode"><pre class="sourceCode js"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">getId</span>(cb) <span class="op">{</span>
+  <span class="at">checkBit</span>(<span class="dv">0</span><span class="op">,</span> <span class="kw">function</span> (bit0) <span class="op">{</span>
+    <span class="at">checkBit</span>(<span class="dv">1</span><span class="op">,</span> <span class="kw">function</span> (bit1) <span class="op">{</span>
+      <span class="at">checkBit</span>(<span class="dv">2</span><span class="op">,</span> <span class="kw">function</span> (bit2) <span class="op">{</span>
+        <span class="at">checkBit</span>(<span class="dv">3</span><span class="op">,</span> <span class="kw">function</span> (bit3) <span class="op">{</span>
+          <span class="kw">var</span> binId <span class="op">=</span> [bit0<span class="op">,</span> bit1<span class="op">,</span> bit2<span class="op">,</span> bit3].<span class="at">join</span>(<span class="st">''</span>)<span class="op">;</span>
+          <span class="at">cb</span>(<span class="at">bin2hex</span>(binId))<span class="op">;</span>
+        <span class="op">}</span>)<span class="op">;</span>
+      <span class="op">}</span>)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+  <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>
 
-function setId() {
+<span class="kw">function</span> <span class="at">setId</span>() <span class="op">{</span>
 
-  // Generate a fresh ID
-  var id = guid();
-  var binId = guid2bin(id);
+  <span class="co">// Generate a fresh ID</span>
+  <span class="kw">var</span> id <span class="op">=</span> <span class="at">guid</span>()<span class="op">;</span>
+  <span class="kw">var</span> binId <span class="op">=</span> <span class="at">guid2bin</span>(id)<span class="op">;</span>
 
-  // Set the _supercookie_ using our lambda HSTS magic
-  for (var i = 0; i &lt; binId.length; i++) {
-    setBit(binId, i);
-  }
+  <span class="co">// Set the _supercookie_ using our lambda HSTS magic</span>
+  <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">binId</span>.<span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span>
+    <span class="at">setBit</span>(binId<span class="op">,</span> i)<span class="op">;</span>
+  <span class="op">}</span>
 
-  // Return the original HEX ID
-  return id;
-}</code></pre>
+  <span class="co">// Return the original HEX ID</span>
+  <span class="cf">return</span> id<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
 <p>As we can only store a limited number of bits with this method, doing anything useful with this identification would involve saving these IDs serverside along with the information you can glean from their activity across the web.</p>
 <h3 id="not-sofast..">Not so fast..</h3>
 <p>It is important that the ethical implications of purposely circumventing user privacy settings aren’t missed in the haze of new shiny things. This is a particularly crafty way of getting the information that advertisers want and uses bleeding edge tech to accomplish it easily, but it is still an invasion of user privacy. It is actively circumventing the security settings enforced by the user’s choice of browser. Visibility on privacy and security issues need to be made public so that users are equipped to protect themselves from them, so hopefully reading this will have made something think a little harder about the part they play in this. User or developer, like it or this applies to us all.</p>
