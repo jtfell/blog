@@ -57,3 +57,7 @@ div.info {
 .figure > img {
   max-width: 100%
 }
+
+.sourceCode {
+  font-size: 14px;
+}

@@ -182,8 +182,8 @@ function getId(cb) {
 function setId() {
 
   // Generate a fresh ID
-  var id = guid();
-  var binId = guid2bin(id);
+  var id = genId();
+  var binId = hex2bin(id);
 
   // Set the _supercookie_ using our lambda HSTS magic
   for (var i = 0; i < binId.length; i++) {
