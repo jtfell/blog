@@ -2,7 +2,7 @@
 title: Serverless Supercookies
 ---
 
-Browser privacy has been getting a lot of attention lately. It’sgetting
+Browser privacy has been getting a lot of attention lately. It’s getting
 harder and harder to navigate the web without leaking personal data to
 the gremlins lurking in the dark corners or your favourite website.
 
