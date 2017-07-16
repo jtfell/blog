@@ -4,16 +4,17 @@ title: Serverless Supercookies
 
 Browser privacy has been getting a lot of attention lately. It’s getting
 harder and harder to navigate the web without leaking personal data to
-the gremlins lurking in the dark corners or your favourite website.
+the gremlins lurking in the dark corners of your favourite website.
 
 In some ways Safari leads the way in protecting user privacy through their
 default disabling of third-party cookies, while it has to be explicitly
 activated in Chrome and Firefox. The feature I’m interested in amongst
-the complex and is that choosing this setting causes the browser to
-sandbox all storage within each domain so you can identify a returning
-user to your site, but not who they are when they show up again elsewhere.
-This presents an issue for the people who want to track your online
-behaviour so they can show you ads for things that you might buy.
+the complex machinery protecting user privacy is the browser sandboxing
+all storage within each domain so you can be identified when a returning
+to a single site, but your identity is unable to be linked to your activity
+elsewhere. This presents an issue for the people who want to track your online
+behaviour and build up a database of the sites you have visited in order
+to guess your demographics.
 
 The ability get around this little roadblock is extremely valuable to
 advertisers and analytics vendors as it offers a competitive edge in
