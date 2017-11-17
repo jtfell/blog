@@ -209,7 +209,7 @@ and uses bleeding edge tech to accomplish it easily, but it is still an
 invasion of user privacy. It is actively circumventing the security settings
 enforced by the user’s choice of browser. Visibility on privacy and security
 issues need to be made public so that users are equipped to protect themselves
-from them, so hopefully reading this will have made something think a little
-harder about the part they play in this. User or developer, like it or this
+from them, so hopefully reading this will have made someone think a little
+harder about the part they play in this. User or developer, like it or not this
 applies to us all.
 

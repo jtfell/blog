@@ -38,7 +38,7 @@ Nodejs is an excellent choice for the kind of code we are writing. Even more so
 with ES6/7 and typescript available. What I didn't know was that event-loops are
 a non-optimal way of dealing with concurrency especially when compared to green
 threads [this article](https://www.fpcomplete.com/blog/2017/01/green-threads-are-like-garbage-collection)
-explains this point far better than I can). Even when considering that the pre-fork
+explains this point far better than I can. Even when considering that the pre-fork
 method can get around some of its shortcomings in relation to single-threadedness,
 testability and readability still suffer.
 
