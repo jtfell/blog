@@ -13,5 +13,35 @@ a production quality language.
 
 ### Defining the API
 
-First, lets get the garbage collector API locked down. That will make it easy to focus on the implementation and integrating it
-with the compiler later.
+First, lets get the garbage collector API locked down. That will make it easy to focus on the implementation and integrating it with the compiler later.
+
+```c
+/**
+ * Objects are to be allocated as groups of blocks of memory.
+ *
+ * Define a struct to describe a block.
+ */
+typedef struct bdescr_ {
+  
+  // The memory location of the block
+  void *              start;
+
+  // The next block in the group (can be null)
+  struct bdescr_ *    link;
+} bdescr;
+
+/**
+ * Public methods
+ */
+// Initialises the GC
+void gc_init();
+
+// Allocates a group, returning a pointer to the block at the start
+bdescr * allocGroup(int n);
+
+// Removes a group from the memory pool
+void freeGroup(bdescr * p);
+
+```
+
+This is loosely based off the design of GHCs garbage collector.
