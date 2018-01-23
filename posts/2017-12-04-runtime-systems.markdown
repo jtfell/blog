@@ -23,7 +23,7 @@ and finally run a program which calls out to the function defined there.
 
 So the state of things after some modifications to the sample project consists of:
 
- - The compiler which outputs a LLVM IR representation of the AST it is given (hardcoded in the absense
+ - The compiler which outputs an LLVM IR representation of the AST it is given (hardcoded in the absense
    of a frontend for the compiler). I have just removed some of the JIT functionality as I'm not building
    an interpreter.
  - An external library that can be referenced in the AST (`lib/rts.c`). It only contains a basic print
@@ -57,13 +57,5 @@ default:
 
 The full repo for this skeleton is [here](https://github.com/jtfell/compiler-llvm/tree/94ac4332aff49874979bce4460fc506492a7e14b).
 
-### A simple GC
-
-So now I can define arbitrary functions in C and use them in the compiler to power high-level constructs. A good first project
-to get my feet wet is a garbage collector. This only really needs a `malloc` and `free` from the OS and shouldn't require
-much of a change in the AST I've borrowed from Kaleidoscope. A good guide for some design decisions is the entry in AOSA about
-[GHC](http://www.aosabook.org/en/ghc.html), which is an excellent resource for understanding how the runtime system works for
-a production quality language.
-
-
-
+That wraps up the preparation stage of this experiment, next up I'll experiment with a GC or thread scheduler to get my feet wet
+in this part of the compiler.
