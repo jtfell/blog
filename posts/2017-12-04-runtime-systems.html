@@ -9,14 +9,13 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,700" rel="stylesheet" />
     </head>
     <body>
-      <header class="max-width-4 mx-auto px3 py4">
+      <header class="mx-auto px3 py4">
         <a class="h1 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
       </header>
 
-      <section class="max-width-4 mx-auto px3 py4">
+      <section class="mx-auto px3 py4">
         <h2 class="h6 caps">Runtime Systems</h2>
-        <div class="max-width-3">
-          <div><p>After years of playing around with compilers and language design, I had a moment of clarity. The hardcore engineering at the heart of building a modern, high-level language is the aspect of the pursuit that really appeals to me. I’m really glad I have had this realisation as it allows me to focus in on a particularly difficult part of building a language: the runtime system.</p>
+        <div><p>After years of playing around with compilers and language design, I had a moment of clarity. The hardcore engineering at the heart of building a modern, high-level language is the aspect of the pursuit that really appeals to me. I’m really glad I have had this realisation as it allows me to focus in on a particularly difficult part of building a language: the runtime system.</p>
 <p>After reading around, I found out that the runtime system is responsible for giving the higher-level abstractions their superpowers. For example, creating an array in a dynamic language like Javascript is so painless because the runtime allocates and deallocates the memory required for it (this is the garbage collector at work). Or perhaps more interestingly, any parallel or asynchronous constructs in a language need to be provided by the runtime.</p>
 <h3 id="getting-set-up">Getting Set Up</h3>
 <p>In order to experiment with writing a runtime system I needed a language to write one for. Unfortunately my previous experiments weren’t up to the task so I took a nice and simple <a href="http://www.stephendiehl.com/llvm/">example</a> (with a full tutorial explaining its design) and tried to link in some custom C code to the output program. This compiler outputs LLVM IR, so using clang I was able to compile my C code to the same representation, then link them and finally run a program which calls out to the function defined there.</p>
@@ -49,7 +48,6 @@ default:
 <p>The full repo for this skeleton is <a href="https://github.com/jtfell/compiler-llvm/tree/94ac4332aff49874979bce4460fc506492a7e14b">here</a>.</p>
 <p>That wraps up the preparation stage of this experiment, next up I’ll experiment with a GC or thread scheduler to get my feet wet in this part of the compiler.</p></div>
 
-        </div>
       </section>
 
       <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
