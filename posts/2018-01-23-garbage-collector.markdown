@@ -1,5 +1,5 @@
 ---
-Title: Garbage Collectors
+title: Garbage Collectors
 ---
 
 See this [Previous Post](./2017-12-04-runtime-systems.markdown) for how to setup an environment for integrating a runtime system

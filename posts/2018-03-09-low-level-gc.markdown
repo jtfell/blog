@@ -1,5 +1,5 @@
 ---
-Title: Garbage Collector Low-Level API
+title: Garbage Collector Low-Level API
 ---
 
 See this [Previous Post](./2018-01-23-garbage-collector.markdown) for the design of my uber simple garbage collector. I'm
