@@ -18,7 +18,10 @@ the time incorrectly.
 
 JSON schema is the perfect solution for protecting yourself from trash data. Taking the time to properly define the expected structure of inputs
 will pay dividends almost immediately as your controllers no longer have to be written defensively. From useful error messages
-to documentation generation, the benefits are huge and there are validation libraries for all mainstream languages. Just do this one.
+to documentation generation, the benefits are huge and there are validation libraries for all mainstream languages.
+Just do this one. You can even take this a step further and generate the code for your controllers based off these definitions.
+Also consider adopting the [JSON API](http://jsonapi.org/) standard as there are lots of tools for generating response structures
+and validating their consistency.
 
 ### Most granular/locked down DB schema possible
 
