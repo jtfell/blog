@@ -4,6 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Julian Fell - API Design for Pragmatists</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" type="text/css" href="../css/base.css" />
         <link rel="stylesheet" type="text/css" href="../css/pandoc.css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,700" rel="stylesheet" />
@@ -19,7 +20,7 @@
 <h3 id="explicit-date-and-time-handling">Explicit date and time handling</h3>
 <p>Dates and timezones have caused the most bugs of anything in my experience of API design. Whoever decided how modern timezones work has a lot to answer for and you don’t want to make the situation any worse. Make sure that all dates are validated and only accept a pre-defined set of date formats (I suggest ISO formats with explicit timezones) so that there is no ambiguity about what timezone you are dealing with. Don’t forget that browsers default to using local times in many situations, so forgetting to send a timezone will result in the API interpretting the time incorrectly.</p>
 <h3 id="json-schema-validation-for-all-postputs">JSON Schema validation for all POST/PUTs</h3>
-<p>JSON schema is the perfect solution for protecting yourself from trash data. Taking the time to properly define the expected structure of inputs will pay dividends almost immediately as your controllers no longer have to be written defensively. From useful error messages to documentation generation, the benefits are huge and there are validation libraries for all mainstream languages. Just do this one.</p>
+<p>JSON schema is the perfect solution for protecting yourself from trash data. Taking the time to properly define the expected structure of inputs will pay dividends almost immediately as your controllers no longer have to be written defensively. From useful error messages to documentation generation, the benefits are huge and there are validation libraries for all mainstream languages. Just do this one. You can even take this a step further and generate the code for your controllers based off these definitions. Also consider adopting the <a href="http://jsonapi.org/">JSON API</a> standard as there are lots of tools for generating response structures and validating their consistency.</p>
 <h3 id="most-granularlocked-down-db-schema-possible">Most granular/locked down DB schema possible</h3>
 <p>I won’t hesitate to admit I’m a traditionalist when it comes to databases. The consistency and data integrity you can achieve purely through a strict SQL schema will ALWAYS be worth the initial effort of defining it. My advice is to explicitly encode every property, relationship and restriction into your schema as this will make the database reject invalid data and also give engineers a single place to go to understand your data model.</p>
 <h3 id="use-well-understood-persistence-tech-postgres-redis-unless-demonstrated-need-for-specific-featuresperformance">Use well-understood persistence tech (postgres / redis) unless demonstrated need for specific features/performance</h3>
