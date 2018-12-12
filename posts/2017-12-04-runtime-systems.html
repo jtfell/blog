@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Julian Fell - Runtime Systems</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/pandoc.css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,700" rel="stylesheet" />
+    </head>
+    <body>
+      <header class="mx-auto px3 py4">
+        <a class="h1 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
+      </header>
+
+      <section class="mx-auto px3 py4">
+        <h2 class="h6 caps">Runtime Systems</h2>
+        <div><p>After years of playing around with compilers and language design, I had a moment of clarity. The hardcore engineering at the heart of building a modern, high-level language is the aspect of the pursuit that really appeals to me. I’m really glad I have had this realisation as it allows me to focus in on a particularly difficult part of building a language: the runtime system.</p>
+<p>After reading around, I found out that the runtime system is responsible for giving the higher-level abstractions their superpowers. For example, creating an array in a dynamic language like Javascript is so painless because the runtime allocates and deallocates the memory required for it (this is the garbage collector at work). Or perhaps more interestingly, any parallel or asynchronous constructs in a language need to be provided by the runtime.</p>
+<h3 id="getting-set-up">Getting Set Up</h3>
+<p>In order to experiment with writing a runtime system I needed a language to write one for. Unfortunately my previous experiments weren’t up to the task so I took a nice and simple <a href="http://www.stephendiehl.com/llvm/">example</a> (with a full tutorial explaining its design) and tried to link in some custom C code to the output program. This compiler outputs LLVM IR, so using clang I was able to compile my C code to the same representation, then link them and finally run a program which calls out to the function defined there.</p>
+<p>So the state of things after some modifications to the sample project consists of:</p>
+<ul>
+<li>The compiler which outputs an LLVM IR representation of the AST it is given (hardcoded in the absense of a frontend for the compiler). I have just removed some of the JIT functionality as I’m not building an interpreter.</li>
+<li>An external library that can be referenced in the AST (<code>lib/rts.c</code>). It only contains a basic print function to prove it can be called.</li>
+</ul>
+<p>The makefile I wrote to glue these components together is definitely not portable but will likely be easy to port to another system.</p>
+<pre><code>LLVM_DIR=/usr/local/Cellar/llvm-5.0/5.0.0/bin/
+
+default:
+	stack build
+
+	### First we generate LLVM IR representation of the program and runtime lib
+	# Use the custom compiler for the actual program
+	stack exec main &gt; main.ll
+	# Use clang for the runtime lib
+	clang -emit-llvm -S lib/rts.c -o lib/rts.ll
+
+	# Use LLVM assembler for converting LLVM IR to bitcodes
+	$(LLVM_DIR)/llvm-as-5.0 lib/rts.ll -o lib/rts.bc
+	$(LLVM_DIR)/llvm-as-5.0 main.ll -o main.bc
+
+	# Use LLVM link to generate a single bitcode file
+	$(LLVM_DIR)/llvm-link-5.0 main.bc lib/rts.bc -o output.bc
+
+	# Execute the bitcode using the LLVM interpreter
+	$(LLVM_DIR)/lli-5.0 output.bc</code></pre>
+<p>The full repo for this skeleton is <a href="https://github.com/jtfell/compiler-llvm/tree/94ac4332aff49874979bce4460fc506492a7e14b">here</a>.</p>
+<p>That wraps up the preparation stage of this experiment, next up I’ll experiment with a GC or thread scheduler to get my feet wet in this part of the compiler.</p></div>
+
+      </section>
+
+      <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
+          <a href="../index.html" class="h6 bold caps black">Blog Home</a>
+      </footer>
+    </body>
+
+    <style>
+
+      /* Lazy hacks for bad behaving elements */
+      .text-decoration-none:hover {
+        background-image: none;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      header {
+        padding-bottom: 0px !important;
+      }
+    </style>
+</html>
+
+

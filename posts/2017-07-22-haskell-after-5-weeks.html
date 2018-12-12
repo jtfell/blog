@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Julian Fell - Haskell After 5 Weeks</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/pandoc.css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,700" rel="stylesheet" />
+    </head>
+    <body>
+      <header class="mx-auto px3 py4">
+        <a class="h1 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
+      </header>
+
+      <section class="mx-auto px3 py4">
+        <h2 class="h6 caps">Haskell After 5 Weeks</h2>
+        <div><p>Before starting to learn Haskell, I had some preconcieved notions of its strengths and limitations. They turned out to be mostly right for the strengths but the limitations turned out to actually be strengths in a way that was thoroughly surprising to me. Limitations certainly exist, just not where I thought they did.</p>
+<p>My path to Haskell enlightenment was slightly roundabout, as I tackled a heavily functional CS topic for my thesis (reasoning about concurrent programs using the Isabelle/HOL theorem prover), but never took the plunge to write everyday code in a functional language. After uni, I got an exciting job as a web developer and jumped between shiny javascript libraries that seemed like the future of computing itself. It took one too many</p>
+<p><code>cannot access &quot;map&quot; of undefined</code></p>
+<p>errors for me to look for a way out. People talk about callback hell with javascript but for me it was type system hell. There surely has to be a point when you just can’t write any more null checks. At an emotional level, I mean.</p>
+<p>I think the best way to discuss the things that have surprised me most about Haskell is to consider it in the light of a single consideration:</p>
+<p><em>As a web developer, how could I justify the use of Haskell rather than Nodejs for my day job?</em></p>
+<p>Before learning Haskell in any depth, I would have struggled to articulate any points aside from how much easier it would be to reason about and compose programs. Sure this is an important property of a language, but in a small team building webservices it isn’t going to convince anyone.</p>
+<p>At the top of my list of imagined counterpoints was that the webservices we are writing were heavily asynchronous and didn’t do a whole lot of CPU bound tasks outside of the analytics subsystem. Despite the problems with javascript itself, Nodejs is an excellent choice for the kind of code we are writing. Even more so with ES6/7 and typescript available. What I didn’t know was that event-loops are a non-optimal way of dealing with concurrency especially when compared to green threads <a href="https://www.fpcomplete.com/blog/2017/01/green-threads-are-like-garbage-collection">this article</a> explains this point far better than I can. Even when considering that the pre-fork method can get around some of its shortcomings in relation to single-threadedness, testability and readability still suffer.</p>
+<p>Ultimately though, for me it comes down to the ability to write your applications as a thin, impure shell of sequenced IO actions around a set of pure, reusable and easy to test libraries. This is a hard one to explain to people who haven’t tried it for themselves. This leads pretty well into my next thought on the topic.</p>
+<p>There are two big arguments for why Haskell would not be the right choice for the team I work with that do hold up. Firstly, hiring Haskell developers is more difficult than Nodejs developers. That is an unescapable fact. Secondly, existing team members will have to spend some time learning Haskell and may be resistant to the idea of having to reskill like that. They are undoubtedly more social and technical issues, but often the social ones are the hardest to solve.</p>
+<p>From my sample size of one, I feel pretty strongly that these social issues are just that. More to do with perception than the reality of the tools being compared. Consider this. After 5 weeks of learning Haskell in my own time with the internet as my only resource, I was able to write a reasonably functional <a href="https://github.com/jtfell/haskell-http-proxy">reverse HTTP proxy</a> using no HTTP-specific dependencies. I’m still an absolute novice at Haskell, but the power of the language helped me to achieve something I doubt I could do with a language I know back to front in even 4x as much code. Admittedly, it is a problem space that I’m reasonably familiar with and I have used an ML-like language in the past, but the point is that monadic IO and applicative parsers are not at all out of reach for solving real problems.</p></div>
+
+      </section>
+
+      <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
+          <a href="../index.html" class="h6 bold caps black">Blog Home</a>
+      </footer>
+    </body>
+
+    <style>
+
+      /* Lazy hacks for bad behaving elements */
+      .text-decoration-none:hover {
+        background-image: none;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      header {
+        padding-bottom: 0px !important;
+      }
+    </style>
+</html>
+
+
