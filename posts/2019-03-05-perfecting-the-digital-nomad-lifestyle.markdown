@@ -4,7 +4,7 @@ title: Perfecting the Digital Nomad Lifestyle
 
 I began my journey as a digital nomad just under a year ago. With just a remote job, a backpack and a one-way ticket to Eastern Europe, I didn’t have much idea what I was signing up for.
 
-Digital nomadism is a relatively new lifestyle and it brings new benefits and challenges that didn’t exist before. Just like me in the beginning, most people have a pretty strong grasp of the benefits; Freedom to travel perpetually, opportunities to live in cheap countries, escape from the commute and routine of living and working your home city. These things are obvious and worth the transition in my view, but I want to talk about the downsides, mainly because I didn’t fully consider them before taking the plunge myself. 
+Digital nomadism is a relatively new lifestyle and it brings new benefits and challenges that didn’t exist before. Just like me in the beginning, most people have a pretty strong grasp of the benefits; Freedom to travel perpetually, opportunity to live in cheap countries, escape from the commute and routine of your home city. These things are obvious and worth the transition in my view, but I want to talk about the downsides, mainly because I didn’t fully consider them before taking the plunge myself. 
 
 Exercise and diet are two of the first things to slip for me when my routine is thrown off. Unfamiliar neighbourhoods, no gym membership and no casual sports team combine to make this guy much less likely to do any intense exercise in a given week. I’ve generally made up for it through exploring new cities on foot and doing lots of hiking on the weekends, but I definitely miss the futsal games and the feeling of flow during a long run.
 
