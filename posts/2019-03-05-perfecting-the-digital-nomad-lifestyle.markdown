@@ -16,7 +16,7 @@ My only advice here is to pick accomodation very carefully. Look closely at the 
 
 There is a common saying,
 
->> _A place is only as good as the people you know in it. It's the people that make the place._
+> _A place is only as good as the people you know in it. It's the people that make the place._
 
 This rings true for me personally, as there is no greater factor deciding whether I like a place.
 
@@ -27,7 +27,7 @@ The only tonic for this is spending more time with people you already know. With
 So here’s the pitch for my solution:
 
 1. You and all your nomadic friends enter your travel schedule into the web app as you book/plan it (with a flight reservation email parser feature in the pipeline to make this easier to keep up to date).
-2. Any friends overlapping with your trips will show up on your dashboard, allowing you to see how many days you have in the same place.
+2. Any friends overlapping with your trips will show up alongside your trips, allowing you to see how many days you have in the same place.
 3. When trying to decide on a next location you can use the explore feed: Play around with the filters and see the cities ordered by how many overlaps you will have, calculated by number of people X days. Then when you decide, add this trip and it will encourage even more of your friends to join the party.
 4. Use the profile page to easily share your schedule or check up on someone else’s movements.
 
