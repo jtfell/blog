@@ -12,8 +12,10 @@ In the spirit of sharing, here is a list of my favourite resources in order of
 increasing difficulty. Dreaming Spanish is an amazing resource due to their philosophy
 of exclusively listening to the languaage being the best way to learn. While I don't
 necesarily think it's the most efficient way to get to a conversational level, their
-videos are super helpful in the early stages. I combined the super-beginner and beginner level videos with [Memrise]() (for vocabulary) then was able to branch out more as
-I progressed.
+videos are super helpful in the early stages. I combined the super-beginner and
+beginner level videos with [Memrise](https://www.memrise.com) (for vocabulary)
+then was able to branch out more as I progressed.
+
 
 - [Dreaming Spanish Super-Beginner](https://www.youtube.com/playlist?list=PLlpPf-YgbU7GbOHc3siOGQ5KmVSngZucl) (Spain)
 
@@ -49,11 +51,11 @@ hard to understand at first (and their use of Spanglish is jarring sometimes), I
 found this to be great practice for understanding regular conversations. There is
 a serious lack of depth in the content of conversations so the vocabulary is very
 repetitive. It's ridiculous how many times the characters greet each other, order something, talk for 1 or 2 minutes, and then leave their drinks as they race off to the
-next plot point! This, combined with vaguely knowing the plot resulted in a noticable
+next plot point! This combined with vaguely knowing the plot resulted in a noticable
 improvement in how well I have been able to have basic interactions at full speed with
 locals in Mexico. Maybe not for everyone though.
 
-- [Espanolistos](https://www.espanolistos.com/) [Colombia/United States]
+- [Espanolistos](https://www.espanolistos.com/) (Colombia/United States)
 
 I found this a useful resource for just listening to on busses or walking around. The
 episodes are nice and long, the female host (from Colombia) speaks very clearly and
