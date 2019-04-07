@@ -24,13 +24,13 @@ I keep hearing from other nomads that the biggest downside to their lifestyle is
 
 The only tonic for this is spending more time with people you already know. With that goal and my location changing every month or so, I need to be able to plan my travel schedule in a way that overlaps as much as possible with people I already know. Of course, that is much easier said than done. All the nomads I know are constantly changing plans last minute, jumping continents, chasing seasons or only traveling some of the year. Its not really possible to keep in touch with everyone I would potentially want to see again by asking them about their travel schedule every few weeks.
 
-So here’s the pitch for my solution:
+So here’s the pitch for my solution, [Locationless](https://www.locationless.club).
 
-1. You and all your nomadic friends enter your travel schedule into the web app as you book/plan it (with a flight reservation email parser feature in the pipeline to make this easier to keep up to date).
+1. You and your nomadic friends enter your travel schedule into the app as you book/plan it (there is a flight/AirBnB reservation email parser feature in the pipeline to make this easier to keep up to date).
 2. Any friends overlapping with your trips will show up alongside your trips, allowing you to see how many days you have in the same place.
 3. When trying to decide on a next location you can use the explore feed: Play around with the filters and see the cities ordered by how many overlaps you will have, calculated by number of people X days. Then when you decide, add this trip and it will encourage even more of your friends to join the party.
 4. Use the profile page to easily share your schedule or check up on someone else’s movements.
 
-Check it out [here](https://app.locationless.club) or get in touch on [Telegram](https://t.me/jtfell).
+Check it out [here](https://www.locationless.club) or get in touch on [Telegram](https://t.me/jtfell).
 
 
