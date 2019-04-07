@@ -4,15 +4,15 @@ title: Perfecting the Digital Nomad Lifestyle
 
 I began my journey as a digital nomad just under a year ago. With just a remote job, a backpack and a one-way ticket to Eastern Europe, I didn’t have much idea what I was signing up for.
 
-Digital nomadism is an entirely new lifestyle and it brings with it unique benefits and challenges. Most people have a pretty strong grasp of the benefits; Freedom to travel perpetually, to live in cheap countries, to escape from the commute and routine of your home city. These things dominate the discussion on blogs but I want to talk about the downsides, mainly because I didn’t fully consider them before taking the plunge myself. 
+Digital nomadism is an entirely new lifestyle and it brings with it whole bag of unique benefits as well as some serious challenges. Most people have a pretty strong grasp of the benefits; Freedom to travel perpetually, to live in cheap countries, to escape from the commute and routine of your home city. Anyone familiar with the lifestyle can undoubtedly picture someone overlooking a pool in Bali with their laptop and a fruity cocktail. Unfortunately this blog post won't feature any photos of pools or cocktails. I want to talk about the downsides because I know I didn’t fully consider them before taking the plunge myself. 
 
 Exercise and diet are two of the first things to slip for me when my routine is thrown off. Unfamiliar neighbourhoods, no gym membership and no casual sports team combine to make this guy much less likely to do any intense exercise in a given week. I’ve generally made up for it through exploring new cities on foot and doing lots of hiking on the weekends, but I definitely miss the futsal games and the feeling of flow during a long run.
 
 Add to this that you find yourself in a new place with a new kitchen every month or two. Kitchens vary in quality, along with the available ingredients in the local area, making it tough to recreate my usual health focused cooking. Without this to counteract indulging in the local cuisine (non-negotiable for me), my diet has gone through lots of peaks and troughs in the past year. Another problem for me is when the place that I’m staying doesn’t have many spices or other high-cost, low-use items. It’s not feasible to buy these in each location and difficult to take them with you each time you travel.
 
-My only advice here is to pick accomodation very carefully. Look closely at the kitchen in photos & scour reviews for clues about its quality, even send the owner a message to inquire about specifics. It will be worth it when you effortlessly whip up that comfort food from home after a day of being confused and out of your depth. The exercise part is slightly harder and more dependent on your workout preferences. I always check the location of my place to see if it is near a large park or common running trails. [MapMyRun](https://www.mapmyrun.com/routes) is a useful resource to see where people are running in a particular place. 
+![](/images/free.jpg)
 
-\*\*\*
+My only advice here is to pick accomodation very carefully. Look closely at the kitchen in photos & scour reviews for clues about its quality, even send the owner a message to inquire about specifics. It will be worth it when you effortlessly whip up that comfort food from home after a day of being confused and out of your depth. The exercise part is slightly harder and more dependent on your workout preferences. I always check the location of my place to see if it is near a large park or common running trails. [MapMyRun](https://www.mapmyrun.com/routes) is a useful resource to see where people are running in a particular place. 
 
 There is a common saying,
 
@@ -24,13 +24,15 @@ I keep hearing from other nomads that the biggest downside to their lifestyle is
 
 The only tonic for this is spending more time with people you already know. With that goal and my location changing every month or so, I need to be able to plan my travel schedule in a way that overlaps as much as possible with people I already know. Of course, that is much easier said than done. All the nomads I know are constantly changing plans last minute, jumping continents, chasing seasons or only traveling some of the year. Its not really possible to keep in touch with everyone I would potentially want to see again by asking them about their travel schedule every few weeks.
 
-So here’s the pitch for my solution: [Locationless](https://www.locationless.club).
+![](/images/screenshot.png)
+
+So here’s the quick pitch for my solution.
 
 1. You and your nomadic friends enter your travel schedule into the app as you book/plan it (with some things in the pipeline to make this easier to keep up to date).
 2. Any friends overlapping with your trips will show up alongside your trips, allowing you to see how many days you have in the same place.
 3. When trying to decide on a next location you can use the explore feed: Play around with the filters and see the cities ordered by how many overlaps you will have, calculated by number of people X days. Then when you decide, add this trip and it will encourage even more of your friends to join the party.
 4. Use the profile page to easily share your schedule or check up on someone else’s movements.
 
-Check it out [here](https://www.locationless.club) (it's 100% free) or get in touch on [Telegram](https://t.me/jtfell).
+Check it out [here](https://www.locationless.club) or get in touch on [Telegram](https://t.me/jtfell).
 
 
