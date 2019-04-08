@@ -11,11 +11,11 @@
     </head>
     <body>
       <header class="mx-auto px3 py4">
-        <a class="h1 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
+        <a class="h0 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
       </header>
 
-      <section class="mx-auto px3 py4">
-        <h2 class="h6 caps">API Design for Pragmatists</h2>
+      <section class="mx-auto px3 py3">
+        <h2 class="h2 caps">API Design for Pragmatists</h2>
         <div><p>Over the course of a few years building web apps, I’ve come across (and built) some subpar REST APIs. There are plenty of surefire ways to design an API that will cause headaches for users and maintainers alike so it is in everyone’s best interest to lend a hand. Consider this list an investment in the welbeing of the internet at large.</p>
 <h3 id="explicit-date-and-time-handling">Explicit date and time handling</h3>
 <p>Dates and timezones have caused the most bugs of anything in my experience of API design. Whoever decided how modern timezones work has a lot to answer for and you don’t want to make the situation any worse. Make sure that all dates are validated and only accept a pre-defined set of date formats (I suggest ISO formats with explicit timezones) so that there is no ambiguity about what timezone you are dealing with. Don’t forget that browsers default to using local times in many situations, so forgetting to send a timezone will result in the API interpretting the time incorrectly.</p>

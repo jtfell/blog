@@ -11,11 +11,11 @@
     </head>
     <body>
       <header class="mx-auto px3 py4">
-        <a class="h1 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
+        <a class="h0 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
       </header>
 
-      <section class="mx-auto px3 py4">
-        <h2 class="h6 caps">Garbage Collectors</h2>
+      <section class="mx-auto px3 py3">
+        <h2 class="h2 caps">Garbage Collectors</h2>
         <div><p>See this <a href="./2017-12-04-runtime-systems.markdown">Previous Post</a> for how to setup an environment for integrating a runtime system written in C with a compiler for a simple language written in Haskell.</p>
 <p>So now I can define arbitrary functions in C and use them in the compiler to power high-level constructs. A good first project to get my feet wet is a garbage collector. This only really needs allocation and free primitives from the OS and shouldn’t require much of a change in the AST I’ve borrowed from Kaleidoscope. A good guide for some design decisions is the entry in AOSA about <a href="http://www.aosabook.org/en/ghc.html">GHC</a>, which is an excellent resource for understanding how the runtime system works for a production quality language.</p>
 <h3 id="defining-the-api">Defining the API</h3>

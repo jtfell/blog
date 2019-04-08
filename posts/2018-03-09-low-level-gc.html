@@ -11,11 +11,11 @@
     </head>
     <body>
       <header class="mx-auto px3 py4">
-        <a class="h1 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
+        <a class="h0 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
       </header>
 
-      <section class="mx-auto px3 py4">
-        <h2 class="h6 caps">Garbage Collector Low-Level API</h2>
+      <section class="mx-auto px3 py3">
+        <h2 class="h2 caps">Garbage Collector Low-Level API</h2>
         <div><p>See this <a href="./2018-01-23-garbage-collector.markdown">Previous Post</a> for the design of my uber simple garbage collector. I’m spliting the initial implementation into 2 phases, the low-level block-based memory allocation API and the higher-level API for allocating runtime objects and cleaning them back up. This article will focus on building the low-level bit that will be built upon for more useful abstractions.</p>
 <h3 id="jump-in-the-pool">Jump in the pool</h3>
 <p>First up, we need to prepare the memory pool and set up some book keeping globals (yeah I know, bad style but I’m just doing this for learning so get off your high horse). Please don’t see these code examples and use them in your project, I haven’t written any C since I finished my university degree 2 years ago so am likely commiting plenty of sins in the process of sketching out this GC prototype.</p>
