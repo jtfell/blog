@@ -43,6 +43,17 @@ similar level of difficulty. I'm not sure if this is due to me being very famili
 with the host by this point (I've watched most of his videos), or if he is very
 good at speaking clearly and at the ideal pace for intermediate learners.
 
+- [Duolingo Spanish Podcast](https://podcast.duolingo.com/) (Latin America)
+
+I can't say enough great things about this podcast. They absolutely nail the sweet
+spot of interesting content that is still accessible to advanced beginners. Each
+episode is a story centered around the theme of travel by various journalists from
+different parts of Latin America (eg. Venezuela, Peru, Colombia, Argentina) with
+the host chiming in for context in English along the way. Some of the episodes are
+tend to be a bit heavy on the English but overall its a fantastic resource.
+Unfortunately there are only 2 relatively short seasons as of the time of writing.
+The cost of quality storytelling and high production values I guess.
+
  - [Gossip Girl Acapulco](http://gossipgirlacapulcocapitulos.blogspot.com/) (Mexico)
 
 Embarrassingly enough, I've seen the the first season the US version of Gossip Girl
