@@ -1,5 +1,7 @@
 /*! Basscss | http://basscss.com | MIT License */
 
+.h0{ font-size:3rem }
+
 .h1{ font-size:2rem }
 
 .h2{ font-size:1.5rem }
@@ -934,4 +936,12 @@ a:hover{
   min-width:130px;
   max-width:250px;
   background:#f1f1f1;
+}
+
+.post-list > li {
+  border-left: 4px solid;
+  padding-left: 20px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  margin-top: 10px;
 }
