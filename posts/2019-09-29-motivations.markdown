@@ -2,13 +2,10 @@
 title: Motivations
 ---
 
-As with anything in life, there are a lot of reasons that people start software
-projects.
-
+Software, as with anything in life, can be created for any of a million motivations.
 Sometimes you want to remind yourself that not all codebases have to be as ugly
-as the one at your day job.
-Sometimes you want to try out that new technology your boss won't let you near.
-Sometimes you don't want to build to a set of requirements.
+as the one at your day job. Sometimes you want to try out that shiny newtechnology
+the boss won't let you touch. Some people just dream of being the next Dan Abramov.
 
 Because they can potentionally become profitable or even useful, the success 
 (or lack thereof) of software projects are often judged from a purely pragmatic
@@ -19,8 +16,8 @@ different lense.
 I built my latest project using [Rust](https://rust-lang.org) for a few reasons,
 none of which were particularly pragmatic. Ideological would be a better description.
 
-As our planet faces an existential threat borne out of overconsumption, many facets
-of my lifestyle have shifted towards something resembling minimalism. If my shopping
+As our planet faces an existential threat born of overconsumption, many facets
+of my lifestyle have shifted towards something resembling minimalism. If my shopping,
 travelling and eating habits are affected, why not the way I write (or think about)
 software.
 
