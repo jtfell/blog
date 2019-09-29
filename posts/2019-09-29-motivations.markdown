@@ -2,12 +2,12 @@
 title: Motivations
 ---
 
-Software, as with anything in life, can be created for any of a million motivations.
+Software, as with anything in life, can be sparked for a million possible motivations.
 Sometimes you want to remind yourself that not all codebases have to be as ugly
 as the one at your day job. Sometimes you want to try out that shiny newtechnology
 the boss won't let you touch. Some people just dream of being the next Dan Abramov.
 
-Because they can potentionally become profitable or even useful, the success 
+Because they can potentionally become useful or profitable, the success 
 (or lack thereof) of software projects are often judged from a purely pragmatic
 perspective. I find this absurdly reductive. Writing software can be as much an
 art as writing music and yet their finished forms are viewed through an entirely
