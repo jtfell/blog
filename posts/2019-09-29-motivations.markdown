@@ -1,5 +1,5 @@
 ---
-title: From The Ashes
+title: Motivations
 ---
 
 As with anything in life, there are a lot of reasons that people start software
@@ -24,7 +24,7 @@ of my lifestyle have shifted towards something resembling minimalism. If my shop
 travelling and eating habits are affected, why not the way I write (or think about)
 software.
 
-As software eats more and more of the world, we should be holding the programs we
+With software eating more and more of the world, we should be holding the programs we
 interact with to a higher standard of quality and correctness. And that starts with
 the foundations of the stack along with our philosophy and approach to wielding them.
 
