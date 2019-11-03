@@ -1,5 +1,5 @@
 ---
-title: Capitalism's sharp teeth
+title: Capitalism's Sharp Teeth
 ---
 
 Technology has facilitated many positive changes in our society and has the
