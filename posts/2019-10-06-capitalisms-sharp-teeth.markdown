@@ -1,4 +1,3 @@
-
 ---
 title: Capitalism's sharp teeth
 ---
