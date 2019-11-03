@@ -13,9 +13,8 @@ reading and experimentation I came to the conclusion that Bull would be the bett
 technical decision for the project while Lamb would be easier to hire for and had
 some support from others on the team.
 
-This a common scenario and I wonder how this decision should really be made. Should 
-we take on the risk of being technologically unexceptional or risk extra difficultly
-in hiring and upskilling.
+So should we take on the risk of being technologically unexceptional or risk extra
+difficultly in hiring and upskilling?
 
 We could be grappling with an untethered Bull, unable to wield its power and petrifying
 new hires with its raw strength. But is that better than being stuck with an uncomplicated
@@ -38,12 +37,13 @@ to feel powerful when working on this project will colour my interpretation of
 the types of risk inherent in the decision that I objectively understand. The
 abilities of an abstract pool of potential hires is hard to accurately predict.
 Maybe in three years time Scala will come into vogue and suddenly be easy to hire for.
-Maybe there is (as I suspect) a valuable filtering of potential hires who stick to
-mainstream languages that improves your chances of hiring someone talented.
+Maybe there is (as I suspect) a valuable filtering of potential hires being performed that
+leaves out those who stick to mainstream languages. Either of these scenarios
+would make Bull the better choice in terms of hiring as well, but they are both
+just informed speculation on my part.
 
-Ultimately I need to be able to make the case for Bull or Lamb without personal bias. This
-dictates that I only consider the facts, but my judgement as the domain expert will be
-taken into account. I guess I have a conflict of interest.
-
+Ultimately I need to make the case for Bull or Lamb without personal bias. This
+dictates that I only consider the facts, but I can also present my judgement as
+the domain expert to be considered. I guess I have a conflict of interest.
 
 
