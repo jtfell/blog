@@ -24,6 +24,4 @@ I keep hearing from other nomads that the biggest downside to their lifestyle is
 
 The only tonic for this is spending more time with people you already know. With that goal and my location changing every month or so, I need to be able to plan my travel schedule in a way that overlaps as much as possible with people I already know. Of course, that is much easier said than done. All the nomads I know are constantly changing plans last minute, jumping continents, chasing seasons or only traveling some of the year. Its not really possible to keep in touch with everyone I would potentially want to see again by asking them about their travel schedule every few weeks.
 
-![](/images/screenshot.png)
-
 
