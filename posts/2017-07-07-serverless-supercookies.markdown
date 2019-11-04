@@ -31,14 +31,14 @@ to the minimal customisation available.
 Okay, so the conventional browser storage methods are sandboxed and the
 devices themselves aren’t individual enough to be reliably differentiated.
 Where to from here? As you may have guessed from the title, the answer is
-to hacks involving HTTPS protocols of course!
+hacks involving HTTPS protocols. Because why not.
 
 A bit of background; the protocol we will be exploiting is the HTTP Strict
 Transport Security (HSTS) protocol. The idea of this protocol is that a server
 can send back a header instructing the browser to access its domain via https
-next time it is visited, even requests the http version. In this scenario, the
-browser reacts with a 307 (internal redirect) when it sees that it has
-received this header from the domain in the past.
+next time it is visited, even when the user requests the http version explicitly.
+In this scenario, the browser reacts with a 307 (internal redirect) when it sees
+that it has received this header from the domain in the past.
 
 On the surface this sounds great. It will help people to avoid visiting sites
 with sensitive information over an unencrypted connection by accident. Terrific.
@@ -49,7 +49,7 @@ There are multiple ways to take advantage of this cache for user identification
 (see [here](http://www.radicalresearch.co.uk/lab/hstssupercookies/) for a more
 in-depth discussion), but the naive way to achieve it is to have lots of domains
 with an endpoint that simply returns an empty response with the HSTS header
-set and fails to respond at all over http. For this example, lets assume we own 
+set and doesn't respond at all over http. For this example, lets assume we own 
 the domain `sneaky-hsts.com` and have set up `0.sneaky-hsts.com/api`,
 `1.sneaky-hsts.com/api`... `7.sneaky-hsts.com/api` with this behaviour.
 
