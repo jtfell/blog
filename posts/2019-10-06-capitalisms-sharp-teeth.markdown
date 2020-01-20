@@ -2,10 +2,6 @@
 title: Capitalism's Sharp Teeth
 ---
 
-Technology has facilitated many positive changes in our society and has the
-potential to provide countless more. It is also feared. And rightfully so,
-as it has been wielded by captialism in an.
-
 For decades, capitalism has focused our society on creating ever more growth and
 wealth. Despite some imperfections, it's hard to argue that the core ideas behind
 capitalism haven't been felt as a net benefit. The "growth at all costs" mindset
