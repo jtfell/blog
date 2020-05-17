@@ -1,0 +1,32 @@
+---
+title: Looping Ideas
+---
+
+For the past few years, I haven't felt the urge to make much music. My last creative period with music was
+when I was playing in a band during university, which feels like a lifetime ago. I miss the moments of
+inspiration when a song comes together and the excitement of releasing the efforts of your labour to the
+world. Even if no one really listens to it.
+
+To re-spark that passion I've been toying with the idea of writing a looping app to run in the browser which
+will allow me to write and perform live. There are countless DAWs available for all platforms, filling
+every production niche, but I don't want all the bells and whistles. I want to sequence a drum track, record live
+audio and be able to loop, mute and sequence them seemlessly. Nothing more (yet).
+
+I expect this to be an emergent process where I start with a modest goal of a few basic looping constructs and
+then realise how useful some other features will be in the new paradigm. I'm hoping this as-needed development
+style to allow me to thoughtfully construct an interface that prioritises utility for making music in the way
+that makes sense to me. This is where I see the advantage of building my own app rather than using an off-the-shelf
+product. I will be in a position to tweak every detail of the performance and composition process.
+
+My focus is initially going to be on designing the most intuitive interface to visualise and manipulate looping
+tracks. From my initial research and brainstorm it will be a combination of:
+
+- A primary grid that can switch resolutions from sub-beat to whole-arrangement with easily taggable blocks for chords/sections (per resolution)
+- A set of recorded loops with waveform preview that can be muted and dragged onto the grid (and are highlighted separately wherever they play)
+- Fluid loops without the concept of a "track" (rather they are instantiated on the grid directly)
+- Grouping constructs (used same way for eg. drum loop made of lots of MIDI "loops", chord progression, song section)
+
+Once I'm happy with the UI, I will delve into the scheduler based on WebAudio to take the state from the UI (likely
+in redux) and "render" it. There are a few different libraries/approaches here that I'll need to investigate but I
+will likely end up borrowing from the pre-built stuff and working directly with the WebAudio API. This leaves the door
+open to use rust/WASM for DSP processing later on if that turns out to be a fun thing to pursue.
