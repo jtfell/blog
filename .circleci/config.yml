@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: jtfell/hakyll:latest
+      - image: jtfell/hakyll:1.0.0
     branches:
       only:
         - develop
