@@ -2,7 +2,7 @@
 title: Garbage Collector Low-Level API
 ---
 
-See this [Previous Post](./2018-01-23-garbage-collector.markdown) for the design of my uber simple garbage collector. I'm
+See this [Previous Post](./2018-01-23-garbage-collector.html) for the design of my uber simple garbage collector. I'm
 spliting the initial implementation into 2 phases, the low-level block-based memory allocation API and the higher-level
 API for allocating runtime objects and cleaning them back up. This article will focus on building the low-level bit that
 will be built upon for more useful abstractions.

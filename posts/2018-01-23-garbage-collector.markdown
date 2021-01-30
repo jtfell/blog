@@ -2,7 +2,7 @@
 title: Garbage Collectors
 ---
 
-See this [Previous Post](./2017-12-04-runtime-systems.markdown) for how to setup an environment for integrating a runtime system
+See this [Previous Post](./2017-12-04-runtime-systems.html) for how to setup an environment for integrating a runtime system
 written in C with a compiler for a simple language written in Haskell.
 
 So now I can define arbitrary functions in C and use them in the compiler to power high-level constructs. A good first project
