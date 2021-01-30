@@ -12,7 +12,6 @@ jobs:
       - restore_cache:
           keys:
             - v1-stack-{{ checksum "blog.cabal" }}
-            - stack-work-
       - run:
           name: Build site executable
           command: stack build
@@ -23,7 +22,7 @@ jobs:
           key: v1-stack-{{ checksum "blog.cabal" }}
       - add_ssh_keys:
           fingerprints:
-            - "50:7b:50:12:21:a0:e5:ac:23:a7:14:15:66:90:5f:d1"
+            - 50:7b:50:12:21:a0:e5:ac:23:a7:14:15:66:90:5f:d1
       - deploy:
           name: Deploy to Github Pages
           command: |
