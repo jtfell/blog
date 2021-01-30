@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Julian Fell - Garbage Collectors</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/pandoc.css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,700" rel="stylesheet" />
+    </head>
+    <body>
+      <header class="mx-auto px3 py4">
+        <a class="h0 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
+      </header>
+
+      <section class="mx-auto px3 py3">
+        <h2 class="h2 caps">Garbage Collectors</h2>
+        <div><p>See this <a href="./2017-12-04-runtime-systems.html">Previous Post</a> for how to setup an environment for integrating a runtime system written in C with a compiler for a simple language written in Haskell.</p>
+<p>So now I can define arbitrary functions in C and use them in the compiler to power high-level constructs. A good first project to get my feet wet is a garbage collector. This only really needs allocation and free primitives from the OS and shouldn’t require much of a change in the AST I’ve borrowed from Kaleidoscope. A good guide for some design decisions is the entry in AOSA about <a href="http://www.aosabook.org/en/ghc.html">GHC</a>, which is an excellent resource for understanding how the runtime system works for a production quality language.</p>
+<h3 id="defining-the-api">Defining the API</h3>
+<p>First, lets get the garbage collector API locked down. That will make it easy to focus on the implementation and integrating it with the compiler later. I really shouldn’t have to justify that though, writing code without planning makes for rubbish design and I want nothing to do with it.</p>
+<p>I am going to define this at 2 levels. The lower level is a block-based memory allocator, which just keeps track of a pool of groups of blocks which can be allocated and freed. Very simple, hopefully very achievable.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co"> * Objects are to be allocated as groups of blocks of memory.</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"> *</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"> * Define a struct to describe a block.</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co"> */</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">typedef</span> <span class="kw">struct</span> bdescr_ {</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">  </a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">  <span class="co">// The memory location of the block</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">  <span class="dt">void</span> *              start;</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">  <span class="co">// The next block in the group (can be null)</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">  <span class="kw">struct</span> bdescr_ *    link;</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">} bdescr;</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co"> * Public methods</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co"> */</span></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">// Initialises the GC pool</span></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="dt">void</span> gc_pool_init();</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">// Allocates a group, returning a pointer to the block at the start</span></a>
+<a class="sourceLine" id="cb1-22" data-line-number="22">bdescr * alloc_group(<span class="dt">int</span> n);</a>
+<a class="sourceLine" id="cb1-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb1-24" data-line-number="24"><span class="co">// Removes a group from the memory pool</span></a>
+<a class="sourceLine" id="cb1-25" data-line-number="25"><span class="dt">void</span> free_group(bdescr * p);</a></code></pre></div>
+<p>This is loosely based off the design of GHCs garbage collector. On top of this, we can then define more specific methods for allocating types of objects, extending the size of existing objects and running the garbage collector algorithm. I’ll start with just the implementation for arrays. The compiler should be able to use this to manage dynamically resized arrays at runtime.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">typedef</span> <span class="kw">struct</span> array_ {</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="dt">int</span>            length;</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">  bdescr *       data;</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">} array;</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="dt">void</span> gc_init();</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="dt">void</span> gc_run();</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">array * alloc_array(<span class="dt">int</span> length);</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="dt">void</span> resize_array(array * arr, <span class="dt">int</span> length);</a></code></pre></div>
+<h3 id="test-cases">Test Cases</h3>
+<p>Now that I’ve dreamt up an API for my garbage collector, I’ll come up with some basic tests to validate the common use cases. These will help verify the implementation is correct as well as informing how it can be integrated with the compiler. It makes sense to test that the low-level API functions correctly, before building the higher level API on top of it.</p>
+<h4 id="low-level">Low level</h4>
+<p>Execising the low-level API is as simple as allocating and deallocating some groups of memory and checking that the expected amount of memory is allocated and accounted for.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="dt">int</span> main () {</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">  gc_pool_init();</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">  bdescr * blockA = alloc_group(<span class="dv">5</span>);</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">  <span class="co">// Print memory usage = 5</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">  bdescr * blockB = alloc_group(<span class="dv">11</span>);</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="co">// Print memory usage = 16</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">  free_group(blockA);</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">  <span class="co">// Print memory usage = 5</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">  free_group(blockB);</a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">  <span class="co">// Print memory usage = 0</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13">}</a></code></pre></div>
+<h4 id="high-level">High level</h4>
+<p>The high-level array based API can be put through the motions by allocating an array, resizing it, letting it fall out of scope and then running the GC algorithm.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="dt">int</span> main() {</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  gc_init();</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">  do_allocs();</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">  gc_run();</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">  <span class="co">// Print memory usage = 0 (xs is out of scope, so is freeable)</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">}</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="dt">void</span> do_allocs() {  </a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">  array * xs = alloc_array(<span class="dv">32</span>);</a>
+<a class="sourceLine" id="cb4-12" data-line-number="12">  <span class="co">// Print memory usage = 32</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14">  resize_array(xs, <span class="dv">64</span>);</a>
+<a class="sourceLine" id="cb4-15" data-line-number="15">  <span class="co">// Print memory usage = 64</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17">  gc_run();</a>
+<a class="sourceLine" id="cb4-18" data-line-number="18">  <span class="co">// Print memory usage = 64 (as xs is still in scope)</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19">}</a></code></pre></div>
+<h3 id="where-to-from-here">Where to from here</h3>
+<p>The implementation of the low-level API should be relatively straightforward as it is just a bunch of pointer-gymnastics and some bookkeeping. The high-level API has me a bit more intimidated but that’s the point isn’t it? I’ll tackle both in further posts, wish me luck!</p></div>
+
+      </section>
+
+      <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
+          <a href="../index.html" class="h6 bold caps black">Blog Home</a>
+      </footer>
+    </body>
+
+    <style>
+
+      /* Lazy hacks for bad behaving elements */
+      .text-decoration-none:hover {
+        background-image: none;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      header {
+        padding-bottom: 0px !important;
+      }
+    </style>
+</html>
+
+

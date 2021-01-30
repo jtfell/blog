@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Julian Fell - Serverless Supercookies</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/pandoc.css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,700" rel="stylesheet" />
+    </head>
+    <body>
+      <header class="mx-auto px3 py4">
+        <a class="h0 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
+      </header>
+
+      <section class="mx-auto px3 py3">
+        <h2 class="h2 caps">Serverless Supercookies</h2>
+        <div><p>Browser privacy has been getting a lot of attention lately. It’s getting harder and harder to navigate the web without leaking personal data to the gremlins lurking in the dark corners of your favourite website.</p>
+<p>In some ways Safari leads the way in protecting user privacy through their default disabling of third-party cookies, while it has to be explicitly activated in Chrome and Firefox. The feature I’m interested in amongst the complex machinery protecting user privacy is the browser sandboxing all storage within each domain so you can be identified when a returning to a single site, but your identity is unable to be linked to your activity elsewhere. This presents an issue for the people who want to track your online behaviour and build up a database of the sites you have visited in order to guess your demographics.</p>
+<p>The ability get around this little roadblock is extremely valuable to advertisers and analytics vendors as it offers a competitive edge in a saturated market. Naturally, when the straightforward methods of identifying users are blocked, they get their developers to turn to more creative methods.</p>
+<p>Fingerprinting is an option, but is well known to be ineffective on homogenous iPhones on 3G connections. Imagine 30 people on the latest iOS, with the latest iPhone on the same train to work in the morning. Fingerprinting is essentially useless for telling them apart thanks to the minimal customisation available.</p>
+<p>Okay, so the conventional browser storage methods are sandboxed and the devices themselves aren’t individual enough to be reliably differentiated. Where to from here? As you may have guessed from the title, the answer is hacks involving HTTPS protocols. Because why not.</p>
+<p>A bit of background; the protocol we will be exploiting is the HTTP Strict Transport Security (HSTS) protocol. The idea of this protocol is that a server can send back a header instructing the browser to access its domain via https next time it is visited, even when the user requests the http version explicitly. In this scenario, the browser reacts with a 307 (internal redirect) when it sees that it has received this header from the domain in the past.</p>
+<p>On the surface this sounds great. It will help people to avoid visiting sites with sensitive information over an unencrypted connection by accident. Terrific. The sticky part is that because this information is cached in the browser, it can be repurposed.</p>
+<p>There are multiple ways to take advantage of this cache for user identification (see <a href="http://www.radicalresearch.co.uk/lab/hstssupercookies/">here</a> for a more in-depth discussion), but the naive way to achieve it is to have lots of domains with an endpoint that simply returns an empty response with the HSTS header set and doesn’t respond at all over http. For this example, lets assume we own the domain <code>sneaky-hsts.com</code> and have set up <code>0.sneaky-hsts.com/api</code>, <code>1.sneaky-hsts.com/api</code>… <code>7.sneaky-hsts.com/api</code> with this behaviour.</p>
+<p><img src="../images/architecture.png" /></p>
+<p>On the client we generate a hexadecimal user ID (lets use <code>4F</code>). With other methods we would just store this in a third-party cookie or local-storage cross-domain iframe so we could pluck it out later. In this case we convert it to binary (<code>01001111</code>) and each bit represents one of our 8 domains. If a bit is a 1, we send a request to https://n.sneaky-hsts.com/api and if its a 0 we don’t.</p>
+<p>Next time this device loads our script it can now attempt to load the http version of each of our domains. The domains that were connected to earlier will be accessed via https (because of our HSTS cache) and the others will fail to connect as our servers won’t respond to HTTP requests. Based on the successful requests and unsuccessful requests, we can now reconstruct our user ID. Failed requests are zeros and successful requests are ones.</p>
+<h3 id="doing-it-for-reals">Doing it for reals</h3>
+<p>Phew, that was a super quick rundown on the mechanics on this method for identifying users across multiple domains. Let’s get to using AWS Lambda for a real-life implementation using the serverless infrastructure of the future!</p>
+<p>The first step is to setup a wildcard SSL certificate using Certificate Manager for <code>*.sneaky-hsts.com</code>. Next, we need a single lambda function that returns a max-age value for my HSTS header.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="va">exports</span>.<span class="at">handler</span> <span class="op">=</span> (event<span class="op">,</span> context<span class="op">,</span> callback) <span class="op">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="at">callback</span>(<span class="kw">null</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="dt">hsts</span><span class="op">:</span> <span class="st">'max-age=31536000'</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="op">};</span></a></code></pre></div>
+<p>The key that is returned isn’t special in itself, but we can easily map it to the response headers through API Gateway. It allows us to route HTTP requests to the lambda function. It needs to be configured to map max-age to the correct header and to allow lenient CORS headers.</p>
+<p><img src="../images/headers.png" /></p>
+<p>Annoyingly, API Gateway doesn’t work with wildcard custom domains (but still allows you to enter them into the console) so I had to configure a custom domain for every. individual. domain. Go on, get clicking (note the 0, 1 and 2 subdomains in the screenshot).</p>
+<p><img src="../images/routes.png" /></p>
+<p>Finally, Route53 can route each subdomain to the corresponding Cloudfront distribution from API Gateway. The fruits of our configuration labour should now look something like this, with our poor little friend being tracked out in front.</p>
+<p><img src="../images/architecture.png" /></p>
+<p>Essentially, Cloudfront is pretending to be lots of domains so we can store lots of bits in the browsers HSTS cache (1 bit per domain). Now that we have the infrastructure we need to store our user IDs, all we need is the client code to expose a cross-domain ID store to our javascript tag.</p>
+<p>First, we need a few helper functions to generate IDs and convert between hex and binary representation. Note that I’m using 4 bit IDs for brevity but this approach can be easily extended to more bits.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">function</span> <span class="at">genId</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="cf">return</span> <span class="va">Math</span>.<span class="at">floor</span>((<span class="dv">1</span> <span class="op">+</span> <span class="va">Math</span>.<span class="at">random</span>()) <span class="op">*</span> <span class="bn">0x10000</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">    .<span class="at">toString</span>(<span class="dv">16</span>)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">    .<span class="at">substring</span>(<span class="dv">1</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="op">}</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="kw">function</span> <span class="at">bin2hex</span>(num) <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">  <span class="cf">return</span> <span class="at">parseInt</span>(num<span class="op">,</span> <span class="dv">2</span>).<span class="at">toString</span>(<span class="dv">4</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="op">}</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="kw">function</span> <span class="at">hex2bin</span>(num) <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">  <span class="cf">return</span> <span class="at">parseInt</span>(num<span class="op">,</span> <span class="dv">4</span>).<span class="at">toString</span>(<span class="dv">2</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="op">}</span></a></code></pre></div>
+<p>Next we can define some functions for setting and checking bits against the server we have setup.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">var</span> $ <span class="op">=</span> <span class="at">require</span>(<span class="st">'jquery'</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">var</span> DOMAIN <span class="op">=</span> <span class="st">'example-domain.com'</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co"> * Request the http version of the subdomain, and if the request is successful it</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co"> * means we it has HSTS cache set (encoded as a 1). If its unsuccessful, it doesn't</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co"> * have the HSTS cache set (encdoed as a 0).</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co"> */</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw">function</span> <span class="at">checkBit</span>(bit<span class="op">,</span> cb) <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">  <span class="va">$</span>.<span class="at">get</span>(<span class="st">'http://'</span> <span class="op">+</span> bit <span class="op">+</span> <span class="st">'.'</span> <span class="op">+</span> DOMAIN)</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">    .<span class="at">done</span>(<span class="kw">function</span> () <span class="op">{</span> <span class="at">cb</span>(<span class="dv">1</span>)<span class="op">;</span> <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">    .<span class="at">fail</span>(<span class="kw">function</span> () <span class="op">{</span> <span class="at">cb</span>(<span class="dv">0</span>)<span class="op">;</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="op">}</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co"> * Request the https version of the subdomain for every 1 in the id. This will set</span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co"> * the HSTS cache.</span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co"> */</span></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="kw">function</span> <span class="at">setBit</span>(binId<span class="op">,</span> bit) <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-20" data-line-number="20">  <span class="cf">if</span> (<span class="va">binId</span>.<span class="at">charAt</span>(bit) <span class="op">===</span> <span class="st">'1'</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-21" data-line-number="21">    <span class="va">$</span>.<span class="at">ajax</span>(<span class="st">'https://'</span> <span class="op">+</span> bit <span class="op">+</span> <span class="st">'.'</span> <span class="op">+</span> DOMAIN)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-22" data-line-number="22">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="op">}</span></a></code></pre></div>
+<p>Finally we can define some (very primitive) functions for setting and getting IDs purely through the HSTS cache. These could be defined more elegantly but they clearly show how it all works.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">function</span> <span class="at">getId</span>(cb) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="at">checkBit</span>(<span class="dv">0</span><span class="op">,</span> <span class="kw">function</span> (bit0) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="at">checkBit</span>(<span class="dv">1</span><span class="op">,</span> <span class="kw">function</span> (bit1) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">      <span class="at">checkBit</span>(<span class="dv">2</span><span class="op">,</span> <span class="kw">function</span> (bit2) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">        <span class="at">checkBit</span>(<span class="dv">3</span><span class="op">,</span> <span class="kw">function</span> (bit3) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">          <span class="kw">var</span> binId <span class="op">=</span> [bit0<span class="op">,</span> bit1<span class="op">,</span> bit2<span class="op">,</span> bit3].<span class="at">join</span>(<span class="st">''</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">          <span class="at">cb</span>(<span class="at">bin2hex</span>(binId))<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">        <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">      <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10">    <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="op">}</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="kw">function</span> <span class="at">setId</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16">  <span class="co">// Generate a fresh ID</span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17">  <span class="kw">var</span> id <span class="op">=</span> <span class="at">genId</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18">  <span class="kw">var</span> binId <span class="op">=</span> <span class="at">hex2bin</span>(id)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20">  <span class="co">// Set the _supercookie_ using our lambda HSTS magic</span></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21">  <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">binId</span>.<span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-22" data-line-number="22">    <span class="at">setBit</span>(binId<span class="op">,</span> i)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-23" data-line-number="23">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb4-25" data-line-number="25">  <span class="co">// Return the original HEX ID</span></a>
+<a class="sourceLine" id="cb4-26" data-line-number="26">  <span class="cf">return</span> id<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-27" data-line-number="27"><span class="op">}</span></a></code></pre></div>
+<p>As we can only store a limited number of bits with this method, doing anything useful with this identification would involve saving these IDs serverside along with the information you can glean from their activity across the web.</p>
+<h3 id="not-sofast..">Not so fast..</h3>
+<p>It is important that the ethical implications of purposely circumventing user privacy settings aren’t missed in the haze of new shiny things. This is a particularly crafty way of getting the information that advertisers want and uses bleeding edge tech to accomplish it easily, but it is still an invasion of user privacy. It is actively circumventing the security settings enforced by the user’s choice of browser. Visibility on privacy and security issues need to be made public so that users are equipped to protect themselves from them, so hopefully reading this will have made someone think a little harder about the part they play in this. User or developer, like it or not this applies to us all.</p></div>
+
+      </section>
+
+      <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
+          <a href="../index.html" class="h6 bold caps black">Blog Home</a>
+      </footer>
+    </body>
+
+    <style>
+
+      /* Lazy hacks for bad behaving elements */
+      .text-decoration-none:hover {
+        background-image: none;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      header {
+        padding-bottom: 0px !important;
+      }
+    </style>
+</html>
+
+

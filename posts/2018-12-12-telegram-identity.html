@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Julian Fell - Telegram Identity</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/pandoc.css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,700" rel="stylesheet" />
+    </head>
+    <body>
+      <header class="mx-auto px3 py4">
+        <a class="h0 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
+      </header>
+
+      <section class="mx-auto px3 py3">
+        <h2 class="h2 caps">Telegram Identity</h2>
+        <div><p>When launching a new web app, the current set of options for handling authentication is highly disappointing. It’s basically a big tradeoff between privacy, streamlined signups and the amount of work needed to implement your security.</p>
+<p>This is a huge issue as a signup page is one of the biggest hurdles for getting users to use your service. Its the first thing they see!</p>
+<p>So lets roll through the usual suspects if starting from scratch.</p>
+<h3 id="roll-your-own">Roll your own</h3>
+<p>The obvious option is to build a username/password/email/2FA system (or leverage something like auth0). This comes with a huge amount of overhead:</p>
+<ul>
+<li>Password resets</li>
+<li>Email/Phone number verification</li>
+<li>Salting/encrypting passwords</li>
+<li>Implementing 2FA</li>
+<li>Implementing signup/login pages</li>
+</ul>
+<p>In addition to the extra work, you leave a huge surface area for bugs to cause your entire auth system to be circumvented. Then pile on the number of users who will turn away at the first sign of needing to generate another password and give away their email. Not a very appealling option.</p>
+<h3 id="facebookgoogle-oauth">Facebook/Google OAuth</h3>
+<p>I will lump these ones together as they’re both pretty ubiquitous. First the good parts:</p>
+<ul>
+<li>Easy implementation (off the shelf in most languages)</li>
+<li>Easy for users to sign up</li>
+<li>Profile pic for free</li>
+</ul>
+<p>That is where the positives end. It is harder and harder for me to stomach the amount of data that is owned by these tech giants. I’m trying to use them less, not sign up to more services and tie my identity to them further. Cross that off the list as well.</p>
+<h3 id="githubgitlablinkedin-etc">Github/Gitlab/LinkedIn etc</h3>
+<p>There are other 3rd party auth services that are less scary to be tethered to, but they are generally quite niche (eg. only developers have a github account). These will work well for something aimed at users from their niche but are unworkable otherwise.</p>
+<h3 id="scratches-head">Scratches head…</h3>
+<p>When I went through this list while building <a href="https://www.locationless.club">Locationless</a>, I couldn’t believe that all of the obvious options require a massive compromise where I least want one. From a user’s perspective, privacy should not be non-negotiable and frankly don’t have enough confidence in myself to protect a full sign-up system into perpetuity.</p>
+<p>Okay I get it, you’ve read the title smart guy. What about <a href="https://telegram.org">Telegram</a>?</p>
+<p>There is actually a lot to like about using Telegram as an identity provider.</p>
+<p><strong>Privacy</strong> - Telegram is well-known to take security very seriously. They have offered bug bounties to break their messanger encryption protocol and well as open-sourcing their client code.</p>
+<p><strong>Business Model</strong> - Their business model is very interesting and this impacts on how much I trust them to not abuse their position. From their FAQs:</p>
+<blockquote>
+<p><em>We believe in fast and secure messaging that is also 100% free… making profits will never be an end-goal for Telegram.</em></p>
+</blockquote>
+<p>Basically, they have a big pile of money (and plans for a crypto venture) so the messanger part of their business is not required to be a mine for data.</p>
+<p><strong>Minimalist</strong> - Profiles on Telegram (from a 3rd party perspective) only consist of a first name, last name, an optional username and an optional profile picture. That’s it. Less data, less trouble.</p>
+<p><strong>Phone Number Vefification</strong> - You need to verify your phone number to sign up for Telegram. That means that everyone who signs up to your website has a verified phone number.</p>
+<h3 id="its-not-all-sunshine-and-rainbows">It’s not all sunshine and rainbows</h3>
+<p>There is a reason why most sites pick Google or Facebook as an OAuth provider; reach. Almost everyone I know has at least one of these accounts so they can click one button and be signed up. Honestly, it’s a huge decision and I’m very likely knee-capping my website by not including these magical buttons.</p>
+<p>But I’m taking a stand. A very small one, but hopefully one which paves the way for more people to make the same decision. I want a future where I don’t rely on Facebook or Google to sign into the services that I use everyday so this is a small step in that direction.</p>
+<p>I just hope most people who see value in my service can be bothered to sign up for Telegram. Let’s see what happens next.</p>
+<p>Check out my sweet minimalist signup page at <a href="https://app.locationless.club">Locationless</a>.</p></div>
+
+      </section>
+
+      <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
+          <a href="../index.html" class="h6 bold caps black">Blog Home</a>
+      </footer>
+    </body>
+
+    <style>
+
+      /* Lazy hacks for bad behaving elements */
+      .text-decoration-none:hover {
+        background-image: none;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      header {
+        padding-bottom: 0px !important;
+      }
+    </style>
+</html>
+
+
