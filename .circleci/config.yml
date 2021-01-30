@@ -20,12 +20,12 @@ jobs:
           paths:
             - ~/app/.stack-work
             - /root/.stack/
-          key: v1-stack-work-{{ checksum "blog.cabal" }}
+          key: v1-stack-{{ checksum "blog.cabal" }}
       - add_ssh_keys:
           fingerprints:
             - "50:7b:50:12:21:a0:e5:ac:23:a7:14:15:66:90:5f:d1"
       - deploy:
-          name: Deploy master to Github Pages
+          name: Deploy to Github Pages
           command: |
             git config --global user.email robots@circleci.com
             git config --global user.name CircleCI
@@ -38,5 +38,5 @@ jobs:
             git add --all
             git commit -m "[`date '+%F %T %Z'`] New release"
             # Push
-            git push origin pages:pages
+            git push origin pages
 
