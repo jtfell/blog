@@ -16,8 +16,8 @@
 
       <section class="mx-auto px3 py3 h-entry">
         <h2 class="h2 caps p-name">Motivations</h2>
-        <span class="e-content">
-          <div><p>Software, as with anything in life, can be sparked for a million possible motivations. Sometimes you want to remind yourself that not all codebases have to be as ugly as the one at your day job. Sometimes you want to try out that shiny newtechnology the boss won’t let you touch. Some people just dream of being the next Dan Abramov.</p>
+        <span>
+          <div class="e-content"><p>Software, as with anything in life, can be sparked for a million possible motivations. Sometimes you want to remind yourself that not all codebases have to be as ugly as the one at your day job. Sometimes you want to try out that shiny newtechnology the boss won’t let you touch. Some people just dream of being the next Dan Abramov.</p>
 <p>Because they can potentionally become useful or profitable, the success (or lack thereof) of software projects are often judged from a purely pragmatic perspective. I find this absurdly reductive. Writing software can be as much an art as writing music and yet their finished forms are viewed through an entirely different lense.</p>
 <p>I built my latest project using <a href="https://rust-lang.org">Rust</a> for a few reasons, none of which were particularly pragmatic. Ideological would be a better description.</p>
 <p>As our planet faces an existential threat born of overconsumption, many facets of my lifestyle have shifted towards something resembling minimalism. If my shopping, travelling and eating habits are affected, why not the way I write (or think about) software.</p>
@@ -30,9 +30,9 @@
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url" href="../posts/2019-09-29-motivations.html">
+    <a class="u-url h6 bold caps black" href="../posts/2019-09-29-motivations.html">
       Published <time class="dt-published">September 29, 2019</time>
-    </a>
+    </a> //
     <a href="../" class="h6 bold caps black">Blog Home</a>
 </footer>
 
@@ -63,7 +63,6 @@ async function renderWebmentions(container) {
 }
 
 function getWebmentions(target) {
-  console.log(target, window.location);
   return fetch('https://webmention.io/api/mentions.jf2?target=' + target)
     .then(response => response.json())
     .then(data => data.children);

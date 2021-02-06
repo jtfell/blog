@@ -16,8 +16,8 @@
 
       <section class="mx-auto px3 py3 h-entry">
         <h2 class="h2 caps p-name">Telegram Identity</h2>
-        <span class="e-content">
-          <div><p>When launching a new web app, the current set of options for handling authentication is highly disappointing. It’s basically a big tradeoff between privacy, streamlined signups and the amount of work needed to implement your security.</p>
+        <span>
+          <div class="e-content"><p>When launching a new web app, the current set of options for handling authentication is highly disappointing. It’s basically a big tradeoff between privacy, streamlined signups and the amount of work needed to implement your security.</p>
 <p>This is a huge issue as a signup page is one of the biggest hurdles for getting users to use your service. Its the first thing they see!</p>
 <p>So lets roll through the usual suspects if starting from scratch.</p>
 <h3 id="roll-your-own">Roll your own</h3>
@@ -64,9 +64,9 @@
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url" href="../posts/2018-12-12-telegram-identity.html">
+    <a class="u-url h6 bold caps black" href="../posts/2018-12-12-telegram-identity.html">
       Published <time class="dt-published">December 12, 2018</time>
-    </a>
+    </a> //
     <a href="../" class="h6 bold caps black">Blog Home</a>
 </footer>
 
@@ -97,7 +97,6 @@ async function renderWebmentions(container) {
 }
 
 function getWebmentions(target) {
-  console.log(target, window.location);
   return fetch('https://webmention.io/api/mentions.jf2?target=' + target)
     .then(response => response.json())
     .then(data => data.children);

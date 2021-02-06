@@ -16,8 +16,8 @@
 
       <section class="mx-auto px3 py3 h-entry">
         <h2 class="h2 caps p-name">API Design for Pragmatists</h2>
-        <span class="e-content">
-          <div><p>Over the course of a few years building web apps, I’ve come across (and built) some subpar REST APIs. There are plenty of surefire ways to design an API that will cause headaches for users and maintainers alike so it is in everyone’s best interest to lend a hand. Consider this list an investment in the welbeing of the internet at large.</p>
+        <span>
+          <div class="e-content"><p>Over the course of a few years building web apps, I’ve come across (and built) some subpar REST APIs. There are plenty of surefire ways to design an API that will cause headaches for users and maintainers alike so it is in everyone’s best interest to lend a hand. Consider this list an investment in the welbeing of the internet at large.</p>
 <h3 id="explicit-date-and-time-handling">Explicit date and time handling</h3>
 <p>Dates and timezones have caused the most bugs of anything in my experience of API design. Whoever decided how modern timezones work has a lot to answer for and you don’t want to make the situation any worse. Make sure that all dates are validated and only accept a pre-defined set of date formats (I suggest ISO formats with explicit timezones) so that there is no ambiguity about what timezone you are dealing with. Don’t forget that browsers default to using local times in many situations, so forgetting to send a timezone will result in the API interpretting the time incorrectly.</p>
 <h3 id="json-schema-validation-for-all-postputs">JSON Schema validation for all POST/PUTs</h3>
@@ -45,9 +45,9 @@
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url" href="../posts/2018-04-04-api-design.html">
+    <a class="u-url h6 bold caps black" href="../posts/2018-04-04-api-design.html">
       Published <time class="dt-published">April  4, 2018</time>
-    </a>
+    </a> //
     <a href="../" class="h6 bold caps black">Blog Home</a>
 </footer>
 
@@ -78,7 +78,6 @@ async function renderWebmentions(container) {
 }
 
 function getWebmentions(target) {
-  console.log(target, window.location);
   return fetch('https://webmention.io/api/mentions.jf2?target=' + target)
     .then(response => response.json())
     .then(data => data.children);

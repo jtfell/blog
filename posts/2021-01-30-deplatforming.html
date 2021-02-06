@@ -16,8 +16,8 @@
 
       <section class="mx-auto px3 py3 h-entry">
         <h2 class="h2 caps p-name">De-Platforming</h2>
-        <span class="e-content">
-          <div><p>In case you missed it, Parler got <a href="https://techcrunch.com/2021/01/11/parler-is-officially-offline-after-aws-suspension/">de-platformed</a> by AWS a little while back. I wonder if this will have an effect on the risk of vendor lock-in. In my experience, the risk is usually identified then promptly ignored by engineers. For good reason; it’s a pain to migrate clouds and the chances of needing to is generally low.</p>
+        <span>
+          <div class="e-content"><p>In case you missed it, Parler got <a href="https://techcrunch.com/2021/01/11/parler-is-officially-offline-after-aws-suspension/">de-platformed</a> by AWS a little while back. I wonder if this will have an effect on the risk of vendor lock-in. In my experience, the risk is usually identified then promptly ignored by engineers. For good reason; it’s a pain to migrate clouds and the chances of needing to is generally low.</p>
 <p>Even if you have done a good job of isolating your code from the specifics of the cloud provider, its going to cost you to pack up and move. Rebuilding the bulk of your devops and automation, relearning a whole new set of service quirks and the migration itself are going to take a while even if you’ve done a good job of keeping to open source tooling and services. God help you if you’ve got a proprietery database or message queue in there somewhere.</p>
 <p>That is when you have enough time to plan your move. Imagine your boss bringing you into their office and saying:</p>
 <p><em>AWS is shutting off our account at midnight on Wednesday. I don’t care where we migrate to but we need our core services to avoid downtime.</em></p>
@@ -30,9 +30,9 @@
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url" href="../posts/2021-01-30-deplatforming.html">
+    <a class="u-url h6 bold caps black" href="../posts/2021-01-30-deplatforming.html">
       Published <time class="dt-published">January 30, 2021</time>
-    </a>
+    </a> //
     <a href="../" class="h6 bold caps black">Blog Home</a>
 </footer>
 
@@ -63,7 +63,6 @@ async function renderWebmentions(container) {
 }
 
 function getWebmentions(target) {
-  console.log(target, window.location);
   return fetch('https://webmention.io/api/mentions.jf2?target=' + target)
     .then(response => response.json())
     .then(data => data.children);

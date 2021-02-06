@@ -16,8 +16,8 @@
 
       <section class="mx-auto px3 py3 h-entry">
         <h2 class="h2 caps p-name">Garbage Collector Low-Level API</h2>
-        <span class="e-content">
-          <div><p>See this <a href="./2018-01-23-garbage-collector.html">Previous Post</a> for the design of my uber simple garbage collector. I’m spliting the initial implementation into 2 phases, the low-level block-based memory allocation API and the higher-level API for allocating runtime objects and cleaning them back up. This article will focus on building the low-level bit that will be built upon for more useful abstractions.</p>
+        <span>
+          <div class="e-content"><p>See this <a href="./2018-01-23-garbage-collector.html">Previous Post</a> for the design of my uber simple garbage collector. I’m spliting the initial implementation into 2 phases, the low-level block-based memory allocation API and the higher-level API for allocating runtime objects and cleaning them back up. This article will focus on building the low-level bit that will be built upon for more useful abstractions.</p>
 <h3 id="jump-in-the-pool">Jump in the pool</h3>
 <p>First up, we need to prepare the memory pool and set up some book keeping globals (yeah I know, bad style but I’m just doing this for learning so get off your high horse). Please don’t see these code examples and use them in your project, I haven’t written any C since I finished my university degree 2 years ago so am likely commiting plenty of sins in the process of sketching out this GC prototype.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="pp">#define BLOCK_SIZE 1024</span></a>
@@ -102,9 +102,9 @@
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url" href="../posts/2018-03-09-low-level-gc.html">
+    <a class="u-url h6 bold caps black" href="../posts/2018-03-09-low-level-gc.html">
       Published <time class="dt-published">March  9, 2018</time>
-    </a>
+    </a> //
     <a href="../" class="h6 bold caps black">Blog Home</a>
 </footer>
 
@@ -135,7 +135,6 @@ async function renderWebmentions(container) {
 }
 
 function getWebmentions(target) {
-  console.log(target, window.location);
   return fetch('https://webmention.io/api/mentions.jf2?target=' + target)
     .then(response => response.json())
     .then(data => data.children);

@@ -16,8 +16,8 @@
 
       <section class="mx-auto px3 py3 h-entry">
         <h2 class="h2 caps p-name">Capitalism's Sharp Teeth</h2>
-        <span class="e-content">
-          <div><p>For decades, capitalism has focused our society on creating ever more growth and wealth. Despite some imperfections, it’s hard to argue that the core ideas behind capitalism haven’t been felt as a net benefit. The “growth at all costs” mindset at the heart of capitalism has been a driving force in businesses harnessing technology to create efficiencies, solve hard problems and enrich the world.</p>
+        <span>
+          <div class="e-content"><p>For decades, capitalism has focused our society on creating ever more growth and wealth. Despite some imperfections, it’s hard to argue that the core ideas behind capitalism haven’t been felt as a net benefit. The “growth at all costs” mindset at the heart of capitalism has been a driving force in businesses harnessing technology to create efficiencies, solve hard problems and enrich the world.</p>
 <p>But the goals of past decades shouldn’t be the top priority when designing how our society operates. The biggest problems of the start of the 21st century are centered around environmental sustainability and the gulf between the rich and poor. Clearly, a focus on growth on alone will not solve them. We need to re-prioritise.</p>
 <p>The unquenchable thirst for growth in companies is reared by their capitalist environment, and more recently the scalabilty of technology has allowed the big ones to consolidate their position of dominance. In the past, large profitable companies required large numbers of staff to run their operation. With this constraint lifted, the profit for shareholders has ever increased while workers increasing lose their jobs.</p>
 <p>Capitalism has quietly developed into a threatening monster. It has claws, grown of executives and investors protecting their status and wealth. And big sharp teeth, paid for by decades of lobbying and corruption. And it has meltingly-hot breath, powered by modern technolgy.</p>
@@ -29,9 +29,9 @@
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url" href="../posts/2019-10-06-capitalisms-sharp-teeth.html">
+    <a class="u-url h6 bold caps black" href="../posts/2019-10-06-capitalisms-sharp-teeth.html">
       Published <time class="dt-published">October  6, 2019</time>
-    </a>
+    </a> //
     <a href="../" class="h6 bold caps black">Blog Home</a>
 </footer>
 
@@ -62,7 +62,6 @@ async function renderWebmentions(container) {
 }
 
 function getWebmentions(target) {
-  console.log(target, window.location);
   return fetch('https://webmention.io/api/mentions.jf2?target=' + target)
     .then(response => response.json())
     .then(data => data.children);

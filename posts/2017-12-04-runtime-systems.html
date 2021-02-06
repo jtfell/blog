@@ -16,8 +16,8 @@
 
       <section class="mx-auto px3 py3 h-entry">
         <h2 class="h2 caps p-name">Runtime Systems</h2>
-        <span class="e-content">
-          <div><p>After years of playing around with compilers and language design, I had a moment of clarity. The hardcore engineering at the heart of building a modern, high-level language is the aspect of the pursuit that really appeals to me. I’m really glad I have had this realisation as it allows me to focus in on a particularly difficult part of building a language: the runtime system.</p>
+        <span>
+          <div class="e-content"><p>After years of playing around with compilers and language design, I had a moment of clarity. The hardcore engineering at the heart of building a modern, high-level language is the aspect of the pursuit that really appeals to me. I’m really glad I have had this realisation as it allows me to focus in on a particularly difficult part of building a language: the runtime system.</p>
 <p>After reading around, I found out that the runtime system is responsible for giving the higher-level abstractions their superpowers. For example, creating an array in a dynamic language like Javascript is so painless because the runtime allocates and deallocates the memory required for it (this is the garbage collector at work). Or perhaps more interestingly, any parallel or asynchronous constructs in a language need to be provided by the runtime.</p>
 <h3 id="getting-set-up">Getting Set Up</h3>
 <p>In order to experiment with writing a runtime system I needed a language to write one for. Unfortunately my previous experiments weren’t up to the task so I took a nice and simple <a href="http://www.stephendiehl.com/llvm/">example</a> (with a full tutorial explaining its design) and tried to link in some custom C code to the output program. This compiler outputs LLVM IR, so using clang I was able to compile my C code to the same representation, then link them and finally run a program which calls out to the function defined there.</p>
@@ -56,9 +56,9 @@ default:
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url" href="../posts/2017-12-04-runtime-systems.html">
+    <a class="u-url h6 bold caps black" href="../posts/2017-12-04-runtime-systems.html">
       Published <time class="dt-published">December  4, 2017</time>
-    </a>
+    </a> //
     <a href="../" class="h6 bold caps black">Blog Home</a>
 </footer>
 
@@ -89,7 +89,6 @@ async function renderWebmentions(container) {
 }
 
 function getWebmentions(target) {
-  console.log(target, window.location);
   return fetch('https://webmention.io/api/mentions.jf2?target=' + target)
     .then(response => response.json())
     .then(data => data.children);

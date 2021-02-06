@@ -16,8 +16,8 @@
 
       <section class="mx-auto px3 py3 h-entry">
         <h2 class="h2 caps p-name">How Pretty Is Your CSS?</h2>
-        <span class="e-content">
-          <div><p>There are already a few apps out there that analyse stylesheets (my favourite is <a href="http://cssstats.com">cssstats</a>), but they’re focused on how well structured the code is. Sure it’s nice to know how maintainable your CSS is, but I want more; I want to know how pretty it will make my page. I mean, thats the end game isn’t it?</p>
+        <span>
+          <div class="e-content"><p>There are already a few apps out there that analyse stylesheets (my favourite is <a href="http://cssstats.com">cssstats</a>), but they’re focused on how well structured the code is. Sure it’s nice to know how maintainable your CSS is, but I want more; I want to know how pretty it will make my page. I mean, thats the end game isn’t it?</p>
 <p>The aesthetic quality of a page is governed by mathematical rules. These rules can be harnessed to improve your page layouts even if you have minimal design experience or intuition (me). I’m proposing that we try to compare how well certain CSS frameworks adhere to some of the basic rules of design. Of course, there are far too many subtleties in how CSS declarations make a page look and feel to confidently say one layout is better than another based off some arbitrary metrics, but I’m down for a challenge and the insights it will bring.</p>
 <p>To pick a one rule out of a sea of options, let’s tackle validating modular scales (every font size on a page should be related by a single ratio). Let’s decide on a scope up front to keep this achievable.</p>
 <ul>
@@ -141,9 +141,9 @@ Pure:       ratio: 1.360, fit: 0.9170</code></pre>
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url" href="../posts/2016-11-08-how-pretty-is-your-css.html">
+    <a class="u-url h6 bold caps black" href="../posts/2016-11-08-how-pretty-is-your-css.html">
       Published <time class="dt-published">November  8, 2016</time>
-    </a>
+    </a> //
     <a href="../" class="h6 bold caps black">Blog Home</a>
 </footer>
 
@@ -174,7 +174,6 @@ async function renderWebmentions(container) {
 }
 
 function getWebmentions(target) {
-  console.log(target, window.location);
   return fetch('https://webmention.io/api/mentions.jf2?target=' + target)
     .then(response => response.json())
     .then(data => data.children);
