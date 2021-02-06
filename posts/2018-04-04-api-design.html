@@ -44,6 +44,13 @@
 	<div id="webmentions"></div>
 </section>
 
+<footer class="flex items-baseline max-width-4 mx-auto px3 py4">
+    <a class="u-url" href="../posts/2018-04-04-api-design.html">
+      Published <time class="dt-published">April  4, 2018</time>
+    </a>
+    <a href="../" class="h6 bold caps black">Blog Home</a>
+</footer>
+
 <a href="https://brid.gy/publish/twitter"></a>
 
 <script>
@@ -96,13 +103,30 @@ function renderWebmention(webmention) {
 
   set(".webmention-author", "href", webmention.author.url || webmention.url);
   set(".webmention-author-avatar", "src", webmention.author.photo);
-  set(".webmention-author-avatar", "alt", `Photo of 
+  set(".webmention-author-avatar", "alt", 'Photo of ' + webmention.author.name);
+  set(".webmention-author-name", "textContent", webmention.author.name);
+  set(".webmention-action", "href", webmention.url);
+
+  set(
+    ".webmention-action",
+    "textContent",
+    action + ' on ' + webmention["wm-received"].substr(0, 10)
+  );
+
+  if (webmention.content) {
+    set(
+      ".webmention-content",
+      "innerHTML",
+      webmention.content.html || webmention.content.text
+    );
+  }
+
+  return rendered;
+}
+</script>
+
         </span>
       </section>
-
-      <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-          <a href="/index.html" class="h6 bold caps black">Blog Home</a>
-      </footer>
     </body>
 
     <style>
