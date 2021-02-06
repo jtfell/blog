@@ -55,7 +55,32 @@ async function renderWebmentions(container) {
 }
 
 function getWebmentions(target) {
-  return fetch(`https://webmention.io/api/mentions.jf2?target=
+  console.log(target, window.location);
+  return fetch('https://webmention.io/api/mentions.jf2?target=' + target)
+    .then(response => response.json())
+    .then(data => data.children);
+}
+
+function renderWebmention(webmention) {
+  const action = {
+    "in-reply-to": "replied",
+    "like-of": "liked",
+    "repost-of": "reposted",
+    "mention-of": "mentioned"
+  }[webmention["wm-property"]];
+
+  const rendered = document.importNode(
+    document.getElementById("webmention-template").content,
+    true
+  );
+
+  function set(selector, attribute, value) {
+    rendered.querySelector(selector)[attribute] = value;
+  }
+
+  set(".webmention-author", "href", webmention.author.url || webmention.url);
+  set(".webmention-author-avatar", "src", webmention.author.photo);
+  set(".webmention-author-avatar", "alt", `Photo of 
       </section>
 
       <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
