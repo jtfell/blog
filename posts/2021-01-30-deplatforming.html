@@ -14,7 +14,7 @@
         <a class="h0 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
       </header>
 
-      <section class="mx-auto px3 py3">
+      <section class="mx-auto px3 py3 e-content">
         <h2 class="h2 caps">De-Platforming</h2>
         <div><p>In case you missed it, Parler got <a href="https://techcrunch.com/2021/01/11/parler-is-officially-offline-after-aws-suspension/">de-platformed</a> by AWS a little while back. I wonder if this will have an effect on the risk of vendor lock-in. In my experience, the risk is usually identified then promptly ignored by engineers. For good reason; it’s a pain to migrate clouds and the chances of needing to is generally low.</p>
 <p>Even if you have done a good job of isolating your code from the specifics of the cloud provider, its going to cost you to pack up and move. Rebuilding the bulk of your devops and automation, relearning a whole new set of service quirks and the migration itself are going to take a while even if you’ve done a good job of keeping to open source tooling and services. God help you if you’ve got a proprietery database or message queue in there somewhere.</p>
@@ -27,6 +27,8 @@
 	<h2>Webmentions</h2>
 	<div id="webmentions"></div>
 </section>
+
+<a href="https://brid.gy/publish/twitter"></a>
 
 <script>
 const container = document.querySelector("#webmentions");
