@@ -14,9 +14,10 @@
         <a class="h0 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
       </header>
 
-      <section class="mx-auto px3 py3 e-content">
-        <h2 class="h2 caps">Haskell After 5 Weeks</h2>
-        <div><p>Before starting to learn Haskell, I had some preconcieved notions of its strengths and limitations. They turned out to be mostly right for the strengths but the limitations turned out to actually be strengths in a way that was thoroughly surprising to me. Limitations certainly exist, just not where I thought they did.</p>
+      <section class="mx-auto px3 py3 h-entry">
+        <h2 class="h2 caps p-name">Haskell After 5 Weeks</h2>
+        <span class="e-content">
+          <div><p>Before starting to learn Haskell, I had some preconcieved notions of its strengths and limitations. They turned out to be mostly right for the strengths but the limitations turned out to actually be strengths in a way that was thoroughly surprising to me. Limitations certainly exist, just not where I thought they did.</p>
 <p>My path to Haskell enlightenment was slightly roundabout, as I tackled a heavily functional CS topic for my thesis (reasoning about concurrent programs using the Isabelle/HOL theorem prover), but never took the plunge to write everyday code in a functional language. After uni, I got an exciting job as a web developer and jumped between shiny javascript libraries that seemed like the future of computing itself. It took one too many</p>
 <p><code>cannot access &quot;map&quot; of undefined</code></p>
 <p>errors for me to look for a way out. People talk about callback hell with javascript but for me it was type system hell. There surely has to be a point when you just can’t write any more null checks. At an emotional level, I mean.</p>
@@ -86,6 +87,7 @@ function renderWebmention(webmention) {
   set(".webmention-author", "href", webmention.author.url || webmention.url);
   set(".webmention-author-avatar", "src", webmention.author.photo);
   set(".webmention-author-avatar", "alt", `Photo of 
+        </span>
       </section>
 
       <footer class="flex items-baseline max-width-4 mx-auto px3 py4">

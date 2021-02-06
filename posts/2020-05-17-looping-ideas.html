@@ -14,9 +14,10 @@
         <a class="h0 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
       </header>
 
-      <section class="mx-auto px3 py3 e-content">
-        <h2 class="h2 caps">Looping Ideas</h2>
-        <div><p>For the past few years, I haven’t felt the urge to make much music. My last creative period with music was when I was playing in a band during university, which feels like a lifetime ago. I miss the moments of inspiration when a song comes together and the excitement of releasing the efforts of your labour to the world. Even if no one really listens to it.</p>
+      <section class="mx-auto px3 py3 h-entry">
+        <h2 class="h2 caps p-name">Looping Ideas</h2>
+        <span class="e-content">
+          <div><p>For the past few years, I haven’t felt the urge to make much music. My last creative period with music was when I was playing in a band during university, which feels like a lifetime ago. I miss the moments of inspiration when a song comes together and the excitement of releasing the efforts of your labour to the world. Even if no one really listens to it.</p>
 <p>To re-spark that passion I’ve been toying with the idea of writing a looping app to run in the browser which will allow me to write and perform live. There are countless DAWs available for all platforms, filling every production niche, but I don’t want all the bells and whistles. I want to sequence a drum track, record live audio and be able to loop, mute and sequence them seemlessly. Nothing more (yet).</p>
 <p>I expect this to be an emergent process where I start with a modest goal of a few basic looping constructs and then realise how useful some other features will be in the new paradigm. I’m hoping this as-needed development style to allow me to thoughtfully construct an interface that prioritises utility for making music in the way that makes sense to me. This is where I see the advantage of building my own app rather than using an off-the-shelf product. I will be in a position to tweak every detail of the performance and composition process.</p>
 <p>My focus is initially going to be on designing the most intuitive interface to visualise and manipulate looping tracks. From my initial research and brainstorm it will be a combination of:</p>
@@ -86,6 +87,7 @@ function renderWebmention(webmention) {
   set(".webmention-author", "href", webmention.author.url || webmention.url);
   set(".webmention-author-avatar", "src", webmention.author.photo);
   set(".webmention-author-avatar", "alt", `Photo of 
+        </span>
       </section>
 
       <footer class="flex items-baseline max-width-4 mx-auto px3 py4">

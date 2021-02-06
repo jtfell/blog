@@ -14,9 +14,10 @@
         <a class="h0 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
       </header>
 
-      <section class="mx-auto px3 py3 e-content">
-        <h2 class="h2 caps">Laying Down a Marker</h2>
-        <div><p>I sometimes feel a sense of mastery when deep in the flow of coding. I’m flying through vim and tmux with hotkeys and shortkeys, techno pumping in my headphones. A sip of coffee, a moment of reflection and back into the matrix.</p>
+      <section class="mx-auto px3 py3 h-entry">
+        <h2 class="h2 caps p-name">Laying Down a Marker</h2>
+        <span class="e-content">
+          <div><p>I sometimes feel a sense of mastery when deep in the flow of coding. I’m flying through vim and tmux with hotkeys and shortkeys, techno pumping in my headphones. A sip of coffee, a moment of reflection and back into the matrix.</p>
 <p>I want to evoke a similar feeling when making music. I think that the key is finding the right balance between artistry and power. Without artistry you can make perfect compositions without any heart or feeling. Without power you are strumming an electric guitar that isn’t plugged in to anything.</p>
 <p>First, some examples that push too far either way. The demos for the <a href="https://www.youtube.com/watch?v=-n_zqjqF9zs">Zen Audio ALK2</a> are clearly amazing. The software interface is intuitive, it allows VST plugins and even has escape hatches to substitute pre-recorded loops with the “Panic” button. But it’s just too powerful. The balance has been upset and too much of the artistry has been rendered obselete.</p>
 <p>As for having too little power, the obvious example is the classic guitar loop pedal. My old one had a single on/off looping function. You can lay down a bassline or chord progression then noodle over the top, but it doesn’t open up the infinite universes of a more powerful setup.</p>
@@ -85,6 +86,7 @@ function renderWebmention(webmention) {
   set(".webmention-author", "href", webmention.author.url || webmention.url);
   set(".webmention-author-avatar", "src", webmention.author.photo);
   set(".webmention-author-avatar", "alt", `Photo of 
+        </span>
       </section>
 
       <footer class="flex items-baseline max-width-4 mx-auto px3 py4">

@@ -14,9 +14,10 @@
         <a class="h0 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
       </header>
 
-      <section class="mx-auto px3 py3 e-content">
-        <h2 class="h2 caps">Telegram Identity</h2>
-        <div><p>When launching a new web app, the current set of options for handling authentication is highly disappointing. It’s basically a big tradeoff between privacy, streamlined signups and the amount of work needed to implement your security.</p>
+      <section class="mx-auto px3 py3 h-entry">
+        <h2 class="h2 caps p-name">Telegram Identity</h2>
+        <span class="e-content">
+          <div><p>When launching a new web app, the current set of options for handling authentication is highly disappointing. It’s basically a big tradeoff between privacy, streamlined signups and the amount of work needed to implement your security.</p>
 <p>This is a huge issue as a signup page is one of the biggest hurdles for getting users to use your service. Its the first thing they see!</p>
 <p>So lets roll through the usual suspects if starting from scratch.</p>
 <h3 id="roll-your-own">Roll your own</h3>
@@ -115,6 +116,7 @@ function renderWebmention(webmention) {
   set(".webmention-author", "href", webmention.author.url || webmention.url);
   set(".webmention-author-avatar", "src", webmention.author.photo);
   set(".webmention-author-avatar", "alt", `Photo of 
+        </span>
       </section>
 
       <footer class="flex items-baseline max-width-4 mx-auto px3 py4">

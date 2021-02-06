@@ -14,9 +14,10 @@
         <a class="h0 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
       </header>
 
-      <section class="mx-auto px3 py3 e-content">
-        <h2 class="h2 caps">Authorisation Revisited</h2>
-        <div><p>With the emergence of any new programming paradigm, there are opportunities to take a fresh approach to old problems. Well established best-practices can be improved upon with new tools and more information available to the engaged developer.</p>
+      <section class="mx-auto px3 py3 h-entry">
+        <h2 class="h2 caps p-name">Authorisation Revisited</h2>
+        <span class="e-content">
+          <div><p>With the emergence of any new programming paradigm, there are opportunities to take a fresh approach to old problems. Well established best-practices can be improved upon with new tools and more information available to the engaged developer.</p>
 <p>The rise of REST APIs has been well documented, and as a consequence,their authorisation has been given plenty of thought by some pretty smart people. The big players have undoubtedly built bullet-proof authorisation strategies to protect their services and users, but that’s not to say there aren’t ways to do it better.</p>
 <p>I have recently been building out my first GraphQL API using NodeJS and while there is plenty of discussion on authentication methods, I struggled to find any in-depth consideration of what to do once the user is authenticated. The way I see it, there are some amazing new opportunities to take advantage of in this space just waiting to be mined.</p>
 <p>As I began to understand the high level structure of a GraphQL server, I wonder how to avoid making a separate database request for every field in the schema. I was not alone in this. I came across the brilliant <a href="https://github.com/facebook/dataloader">dataloader</a> library from Facebook and the way forward became clear. The genius at the heart of dataloader is in how it leverages the structure of the resolver functions. It unlocks improved performance through batching and cacheing database requests with hardly any abstraction overhead.</p>
@@ -85,6 +86,7 @@ function renderWebmention(webmention) {
   set(".webmention-author", "href", webmention.author.url || webmention.url);
   set(".webmention-author-avatar", "src", webmention.author.photo);
   set(".webmention-author-avatar", "alt", `Photo of 
+        </span>
       </section>
 
       <footer class="flex items-baseline max-width-4 mx-auto px3 py4">

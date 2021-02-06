@@ -14,9 +14,10 @@
         <a class="h0 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
       </header>
 
-      <section class="mx-auto px3 py3 e-content">
-        <h2 class="h2 caps">How Pretty Is Your CSS?</h2>
-        <div><p>There are already a few apps out there that analyse stylesheets (my favourite is <a href="http://cssstats.com">cssstats</a>), but they’re focused on how well structured the code is. Sure it’s nice to know how maintainable your CSS is, but I want more; I want to know how pretty it will make my page. I mean, thats the end game isn’t it?</p>
+      <section class="mx-auto px3 py3 h-entry">
+        <h2 class="h2 caps p-name">How Pretty Is Your CSS?</h2>
+        <span class="e-content">
+          <div><p>There are already a few apps out there that analyse stylesheets (my favourite is <a href="http://cssstats.com">cssstats</a>), but they’re focused on how well structured the code is. Sure it’s nice to know how maintainable your CSS is, but I want more; I want to know how pretty it will make my page. I mean, thats the end game isn’t it?</p>
 <p>The aesthetic quality of a page is governed by mathematical rules. These rules can be harnessed to improve your page layouts even if you have minimal design experience or intuition (me). I’m proposing that we try to compare how well certain CSS frameworks adhere to some of the basic rules of design. Of course, there are far too many subtleties in how CSS declarations make a page look and feel to confidently say one layout is better than another based off some arbitrary metrics, but I’m down for a challenge and the insights it will bring.</p>
 <p>To pick a one rule out of a sea of options, let’s tackle validating modular scales (every font size on a page should be related by a single ratio). Let’s decide on a scope up front to keep this achievable.</p>
 <ul>
@@ -192,6 +193,7 @@ function renderWebmention(webmention) {
   set(".webmention-author", "href", webmention.author.url || webmention.url);
   set(".webmention-author-avatar", "src", webmention.author.photo);
   set(".webmention-author-avatar", "alt", `Photo of 
+        </span>
       </section>
 
       <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
