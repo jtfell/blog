@@ -1,4 +1,4 @@
-<div>$body$</div>
+<div class="e-content">$body$</div>
 
 <section>
 	<h2>Webmentions</h2>
@@ -6,9 +6,9 @@
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url" href="$url$">
+    <a class="u-url h6 bold caps black" href="$url$">
       Published <time class="dt-published">$date$</time>
-    </a>
+    </a> //
     <a href="/" class="h6 bold caps black">Blog Home</a>
 </footer>
 
@@ -39,7 +39,6 @@ async function renderWebmentions(container) {
 }
 
 function getWebmentions(target) {
-  console.log(target, window.location);
   return fetch('https://webmention.io/api/mentions.jf2?target=' + target)
     .then(response => response.json())
     .then(data => data.children);
