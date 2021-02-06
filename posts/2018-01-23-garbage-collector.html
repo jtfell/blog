@@ -100,10 +100,41 @@
 <h3 id="where-to-from-here">Where to from here</h3>
 <p>The implementation of the low-level API should be relatively straightforward as it is just a bunch of pointer-gymnastics and some bookkeeping. The high-level API has me a bit more intimidated but that’s the point isn’t it? I’ll tackle both in further posts, wish me luck!</p></div>
 
+<section>
+	<h2>Webmentions</h2>
+	<div id="webmentions"></div>
+</section>
+
+<script>
+const container = document.querySelector("#webmentions");
+
+if (container) {
+  renderWebmentions(container);
+}
+
+async function renderWebmentions(container) {
+  const webmentions = await getWebmentions(window.location.href);
+
+  if (webmentions.length === 0) {
+    return;
+  }
+
+  const list = document.createElement("ul");
+  list.className = "webmentions";
+
+  webmentions.forEach(webmention => {
+    list.appendChild(renderWebmention(webmention));
+  });
+
+  container.appendChild(list);
+}
+
+function getWebmentions(target) {
+  return fetch(`https://webmention.io/api/mentions.jf2?target=
       </section>
 
       <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-          <a href="../index.html" class="h6 bold caps black">Blog Home</a>
+          <a href="/index.html" class="h6 bold caps black">Blog Home</a>
       </footer>
     </body>
 

@@ -23,10 +23,41 @@
 <p>With software eating more and more of the world, we should be holding the programs we interact with to a higher standard of quality and correctness. And that starts with the foundations of the stack along with our philosophy and approach to wielding them.</p>
 <p>These trends lead me to be bullish on the future of Rust, particularly for projects with a high impact. I would prefer to align myself with innovative use of technology for the betterment of the planet than collect a big paycheck for building the next Facebook. The “Move fast and break things” mentality is how we ended up with an environment in peril and the antidote is making things to last.</p></div>
 
+<section>
+	<h2>Webmentions</h2>
+	<div id="webmentions"></div>
+</section>
+
+<script>
+const container = document.querySelector("#webmentions");
+
+if (container) {
+  renderWebmentions(container);
+}
+
+async function renderWebmentions(container) {
+  const webmentions = await getWebmentions(window.location.href);
+
+  if (webmentions.length === 0) {
+    return;
+  }
+
+  const list = document.createElement("ul");
+  list.className = "webmentions";
+
+  webmentions.forEach(webmention => {
+    list.appendChild(renderWebmention(webmention));
+  });
+
+  container.appendChild(list);
+}
+
+function getWebmentions(target) {
+  return fetch(`https://webmention.io/api/mentions.jf2?target=
       </section>
 
       <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-          <a href="../index.html" class="h6 bold caps black">Blog Home</a>
+          <a href="/index.html" class="h6 bold caps black">Blog Home</a>
       </footer>
     </body>
 

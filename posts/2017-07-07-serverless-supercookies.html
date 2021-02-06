@@ -112,10 +112,41 @@
 <h3 id="not-sofast..">Not so fast..</h3>
 <p>It is important that the ethical implications of purposely circumventing user privacy settings aren’t missed in the haze of new shiny things. This is a particularly crafty way of getting the information that advertisers want and uses bleeding edge tech to accomplish it easily, but it is still an invasion of user privacy. It is actively circumventing the security settings enforced by the user’s choice of browser. Visibility on privacy and security issues need to be made public so that users are equipped to protect themselves from them, so hopefully reading this will have made someone think a little harder about the part they play in this. User or developer, like it or not this applies to us all.</p></div>
 
+<section>
+	<h2>Webmentions</h2>
+	<div id="webmentions"></div>
+</section>
+
+<script>
+const container = document.querySelector("#webmentions");
+
+if (container) {
+  renderWebmentions(container);
+}
+
+async function renderWebmentions(container) {
+  const webmentions = await getWebmentions(window.location.href);
+
+  if (webmentions.length === 0) {
+    return;
+  }
+
+  const list = document.createElement("ul");
+  list.className = "webmentions";
+
+  webmentions.forEach(webmention => {
+    list.appendChild(renderWebmention(webmention));
+  });
+
+  container.appendChild(list);
+}
+
+function getWebmentions(target) {
+  return fetch(`https://webmention.io/api/mentions.jf2?target=
       </section>
 
       <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-          <a href="../index.html" class="h6 bold caps black">Blog Home</a>
+          <a href="/index.html" class="h6 bold caps black">Blog Home</a>
       </footer>
     </body>
 

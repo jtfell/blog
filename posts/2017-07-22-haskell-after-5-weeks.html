@@ -28,10 +28,41 @@
 <p>There are two big arguments for why Haskell would not be the right choice for the team I work with that do hold up. Firstly, hiring Haskell developers is more difficult than Nodejs developers. That is an unescapable fact. Secondly, existing team members will have to spend some time learning Haskell and may be resistant to the idea of having to reskill like that. They are undoubtedly more social and technical issues, but often the social ones are the hardest to solve.</p>
 <p>From my sample size of one, I feel pretty strongly that these social issues are just that. More to do with perception than the reality of the tools being compared. Consider this. After 5 weeks of learning Haskell in my own time with the internet as my only resource, I was able to write a reasonably functional <a href="https://github.com/jtfell/haskell-http-proxy">reverse HTTP proxy</a> using no HTTP-specific dependencies. I’m still an absolute novice at Haskell, but the power of the language helped me to achieve something I doubt I could do with a language I know back to front in even 4x as much code. Admittedly, it is a problem space that I’m reasonably familiar with and I have used an ML-like language in the past, but the point is that monadic IO and applicative parsers are not at all out of reach for solving real problems.</p></div>
 
+<section>
+	<h2>Webmentions</h2>
+	<div id="webmentions"></div>
+</section>
+
+<script>
+const container = document.querySelector("#webmentions");
+
+if (container) {
+  renderWebmentions(container);
+}
+
+async function renderWebmentions(container) {
+  const webmentions = await getWebmentions(window.location.href);
+
+  if (webmentions.length === 0) {
+    return;
+  }
+
+  const list = document.createElement("ul");
+  list.className = "webmentions";
+
+  webmentions.forEach(webmention => {
+    list.appendChild(renderWebmention(webmention));
+  });
+
+  container.appendChild(list);
+}
+
+function getWebmentions(target) {
+  return fetch(`https://webmention.io/api/mentions.jf2?target=
       </section>
 
       <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-          <a href="../index.html" class="h6 bold caps black">Blog Home</a>
+          <a href="/index.html" class="h6 bold caps black">Blog Home</a>
       </footer>
     </body>
 

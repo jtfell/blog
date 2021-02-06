@@ -30,10 +30,41 @@
 <p>I keep hearing from other nomads that the biggest downside to their lifestyle is not having a chance at long-term meaningful relationships, whether romantic or platonic. There are plenty of ways to meet people in a new area, with co-working spaces, hostels, Tinder and couch-surfing all bursting with fellow travellers. It can be tiring getting to know a whole set of new people every time you move places though, and while it can be rewarding to make new friends, you miss out on some aspects of a long-term relationship. Sometimes I just want to hang out and do something social without the pressure of a making a good first impression.</p>
 <p>The only tonic for this is spending more time with people you already know. With that goal and my location changing every month or so, I need to be able to plan my travel schedule in a way that overlaps as much as possible with people I already know. Of course, that is much easier said than done. All the nomads I know are constantly changing plans last minute, jumping continents, chasing seasons or only traveling some of the year. Its not really possible to keep in touch with everyone I would potentially want to see again by asking them about their travel schedule every few weeks.</p></div>
 
+<section>
+	<h2>Webmentions</h2>
+	<div id="webmentions"></div>
+</section>
+
+<script>
+const container = document.querySelector("#webmentions");
+
+if (container) {
+  renderWebmentions(container);
+}
+
+async function renderWebmentions(container) {
+  const webmentions = await getWebmentions(window.location.href);
+
+  if (webmentions.length === 0) {
+    return;
+  }
+
+  const list = document.createElement("ul");
+  list.className = "webmentions";
+
+  webmentions.forEach(webmention => {
+    list.appendChild(renderWebmention(webmention));
+  });
+
+  container.appendChild(list);
+}
+
+function getWebmentions(target) {
+  return fetch(`https://webmention.io/api/mentions.jf2?target=
       </section>
 
       <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-          <a href="../index.html" class="h6 bold caps black">Blog Home</a>
+          <a href="/index.html" class="h6 bold caps black">Blog Home</a>
       </footer>
     </body>
 
