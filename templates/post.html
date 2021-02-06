@@ -5,6 +5,13 @@
 	<div id="webmentions"></div>
 </section>
 
+<footer class="flex items-baseline max-width-4 mx-auto px3 py4">
+    <a class="u-url" href="$url$">
+      Published <time class="dt-published">$date$</time>
+    </a>
+    <a href="/" class="h6 bold caps black">Blog Home</a>
+</footer>
+
 <a href="https://brid.gy/publish/twitter"></a>
 
 <script>
@@ -57,14 +64,14 @@ function renderWebmention(webmention) {
 
   set(".webmention-author", "href", webmention.author.url || webmention.url);
   set(".webmention-author-avatar", "src", webmention.author.photo);
-  set(".webmention-author-avatar", "alt", `Photo of ${webmention.author.name}`);
+  set(".webmention-author-avatar", "alt", 'Photo of ' + webmention.author.name);
   set(".webmention-author-name", "textContent", webmention.author.name);
   set(".webmention-action", "href", webmention.url);
 
   set(
     ".webmention-action",
     "textContent",
-    `${action} on ${webmention["wm-received"].substr(0, 10)}`
+    action + ' on ' + webmention["wm-received"].substr(0, 10)
   );
 
   if (webmention.content) {
