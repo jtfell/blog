@@ -58,16 +58,17 @@
 <p>I just hope most people who see value in my service can be bothered to sign up for Telegram. Let’s see what happens next.</p>
 <p>Check out my sweet minimalist signup page at <a href="https://app.locationless.club">Locationless</a>.</p></div>
 
-<section>
+<section id="webmention-container">
 	<h2>Webmentions</h2>
 	<div id="webmentions"></div>
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url h6 bold caps black" href="../posts/2018-12-12-telegram-identity.html">
+    <a class="u-url h6 bold caps black justify-around" href="../posts/2018-12-12-telegram-identity.html">
       Published <time class="dt-published">December 12, 2018</time>
-    </a> //
-    <a href="../" class="h6 bold caps black">Blog Home</a>
+    </a> 
+    <div class="justify-around">//</div>
+    <a href="../" class="h6 bold caps black justify-around">Blog Home</a>
 </footer>
 
 <a href="https://brid.gy/publish/twitter"></a>
@@ -82,7 +83,10 @@ if (container) {
 async function renderWebmentions(container) {
   const webmentions = await getWebmentions(window.location.href);
 
+  // Hide the webmentions section if there aren't any of them to show
   if (webmentions.length === 0) {
+    const section = document.getElementById("webmention-container");
+    section.style.display = 'none';
     return;
   }
 

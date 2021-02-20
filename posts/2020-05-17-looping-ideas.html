@@ -29,16 +29,17 @@
 </ul>
 <p>Once I’m happy with the UI, I will delve into the scheduler based on WebAudio to take the state from the UI (likely in redux) and “render” it. There are a few different libraries/approaches here that I’ll need to investigate but I will likely end up borrowing from the pre-built stuff and working directly with the WebAudio API. This leaves the door open to use rust/WASM for DSP processing later on if that turns out to be a fun thing to pursue.</p></div>
 
-<section>
+<section id="webmention-container">
 	<h2>Webmentions</h2>
 	<div id="webmentions"></div>
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url h6 bold caps black" href="../posts/2020-05-17-looping-ideas.html">
+    <a class="u-url h6 bold caps black justify-around" href="../posts/2020-05-17-looping-ideas.html">
       Published <time class="dt-published">May 17, 2020</time>
-    </a> //
-    <a href="../" class="h6 bold caps black">Blog Home</a>
+    </a> 
+    <div class="justify-around">//</div>
+    <a href="../" class="h6 bold caps black justify-around">Blog Home</a>
 </footer>
 
 <a href="https://brid.gy/publish/twitter"></a>
@@ -53,7 +54,10 @@ if (container) {
 async function renderWebmentions(container) {
   const webmentions = await getWebmentions(window.location.href);
 
+  // Hide the webmentions section if there aren't any of them to show
   if (webmentions.length === 0) {
+    const section = document.getElementById("webmention-container");
+    section.style.display = 'none';
     return;
   }
 

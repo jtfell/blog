@@ -32,16 +32,17 @@
 </ul>
 <p>Let’s complicate it further. Your initial choice out of (A) and (B) seems to have a 20% worse team culture than the alternative after you interview with them. Which do you pick now? This process of point scoring along different axes continues across a range of factors. And while you are making these judgements based on the imperfect information that you have gleaned through an interview process where you have needed to be constantly aware of the impression you are making on them.</p></div>
 
-<section>
+<section id="webmention-container">
 	<h2>Webmentions</h2>
 	<div id="webmentions"></div>
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url h6 bold caps black" href="../posts/2020-08-14-what-is-next-for-julian-fell.html">
+    <a class="u-url h6 bold caps black justify-around" href="../posts/2020-08-14-what-is-next-for-julian-fell.html">
       Published <time class="dt-published">August 14, 2020</time>
-    </a> //
-    <a href="../" class="h6 bold caps black">Blog Home</a>
+    </a> 
+    <div class="justify-around">//</div>
+    <a href="../" class="h6 bold caps black justify-around">Blog Home</a>
 </footer>
 
 <a href="https://brid.gy/publish/twitter"></a>
@@ -56,7 +57,10 @@ if (container) {
 async function renderWebmentions(container) {
   const webmentions = await getWebmentions(window.location.href);
 
+  // Hide the webmentions section if there aren't any of them to show
   if (webmentions.length === 0) {
+    const section = document.getElementById("webmention-container");
+    section.style.display = 'none';
     return;
   }
 

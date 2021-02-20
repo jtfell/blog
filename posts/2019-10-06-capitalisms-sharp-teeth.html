@@ -23,16 +23,17 @@
 <p>Capitalism has quietly developed into a threatening monster. It has claws, grown of executives and investors protecting their status and wealth. And big sharp teeth, paid for by decades of lobbying and corruption. And it has meltingly-hot breath, powered by modern technolgy.</p>
 <p>We need to recognise that the current state of technology in our society is not most efficiently governed by capitalism and our current legal frameworks. It can be seen in the ability of big tech companies to exploit tax loopholes and the repeatted comittal of antitrust violations that our goverments are ill-equipped to regulate technology companies. This is symptomatic of an insufficient framework for getting the most out of technology for everyone on the planet.</p></div>
 
-<section>
+<section id="webmention-container">
 	<h2>Webmentions</h2>
 	<div id="webmentions"></div>
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url h6 bold caps black" href="../posts/2019-10-06-capitalisms-sharp-teeth.html">
+    <a class="u-url h6 bold caps black justify-around" href="../posts/2019-10-06-capitalisms-sharp-teeth.html">
       Published <time class="dt-published">October  6, 2019</time>
-    </a> //
-    <a href="../" class="h6 bold caps black">Blog Home</a>
+    </a> 
+    <div class="justify-around">//</div>
+    <a href="../" class="h6 bold caps black justify-around">Blog Home</a>
 </footer>
 
 <a href="https://brid.gy/publish/twitter"></a>
@@ -47,7 +48,10 @@ if (container) {
 async function renderWebmentions(container) {
   const webmentions = await getWebmentions(window.location.href);
 
+  // Hide the webmentions section if there aren't any of them to show
   if (webmentions.length === 0) {
+    const section = document.getElementById("webmention-container");
+    section.style.display = 'none';
     return;
   }
 

@@ -113,16 +113,17 @@
 <h3 id="not-sofast..">Not so fast..</h3>
 <p>It is important that the ethical implications of purposely circumventing user privacy settings aren’t missed in the haze of new shiny things. This is a particularly crafty way of getting the information that advertisers want and uses bleeding edge tech to accomplish it easily, but it is still an invasion of user privacy. It is actively circumventing the security settings enforced by the user’s choice of browser. Visibility on privacy and security issues need to be made public so that users are equipped to protect themselves from them, so hopefully reading this will have made someone think a little harder about the part they play in this. User or developer, like it or not this applies to us all.</p></div>
 
-<section>
+<section id="webmention-container">
 	<h2>Webmentions</h2>
 	<div id="webmentions"></div>
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url h6 bold caps black" href="../posts/2017-07-07-serverless-supercookies.html">
+    <a class="u-url h6 bold caps black justify-around" href="../posts/2017-07-07-serverless-supercookies.html">
       Published <time class="dt-published">July  7, 2017</time>
-    </a> //
-    <a href="../" class="h6 bold caps black">Blog Home</a>
+    </a> 
+    <div class="justify-around">//</div>
+    <a href="../" class="h6 bold caps black justify-around">Blog Home</a>
 </footer>
 
 <a href="https://brid.gy/publish/twitter"></a>
@@ -137,7 +138,10 @@ if (container) {
 async function renderWebmentions(container) {
   const webmentions = await getWebmentions(window.location.href);
 
+  // Hide the webmentions section if there aren't any of them to show
   if (webmentions.length === 0) {
+    const section = document.getElementById("webmention-container");
+    section.style.display = 'none';
     return;
   }
 

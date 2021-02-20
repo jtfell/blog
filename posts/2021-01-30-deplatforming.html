@@ -24,16 +24,17 @@
 <p>The dynamics influencing the risk of this actually happening are shifting a little at the moment. With the western world polarising politically and big tech companies wading into the culture wars, the risk of being de-platformed has become a bit more real. And you don’t have to be the next Parler to be worried. Adding fuel to this fire is the <a href="https://www.abc.net.au/news/2021-01-28/accc-pursues-google-ad-dominance-facebook-tech-giants-news-code/13098804">standoff</a> between Google and Facebook and the Australian Government over the mandatory bargaining code.</p>
 <p>I sure hope no Murdoch media outlets are on Google Cloud Platform.</p></div>
 
-<section>
+<section id="webmention-container">
 	<h2>Webmentions</h2>
 	<div id="webmentions"></div>
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url h6 bold caps black" href="../posts/2021-01-30-deplatforming.html">
+    <a class="u-url h6 bold caps black justify-around" href="../posts/2021-01-30-deplatforming.html">
       Published <time class="dt-published">January 30, 2021</time>
-    </a> //
-    <a href="../" class="h6 bold caps black">Blog Home</a>
+    </a> 
+    <div class="justify-around">//</div>
+    <a href="../" class="h6 bold caps black justify-around">Blog Home</a>
 </footer>
 
 <a href="https://brid.gy/publish/twitter"></a>
@@ -48,7 +49,10 @@ if (container) {
 async function renderWebmentions(container) {
   const webmentions = await getWebmentions(window.location.href);
 
+  // Hide the webmentions section if there aren't any of them to show
   if (webmentions.length === 0) {
+    const section = document.getElementById("webmention-container");
+    section.style.display = 'none';
     return;
   }
 

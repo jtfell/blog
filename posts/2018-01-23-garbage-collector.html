@@ -101,16 +101,17 @@
 <h3 id="where-to-from-here">Where to from here</h3>
 <p>The implementation of the low-level API should be relatively straightforward as it is just a bunch of pointer-gymnastics and some bookkeeping. The high-level API has me a bit more intimidated but that’s the point isn’t it? I’ll tackle both in further posts, wish me luck!</p></div>
 
-<section>
+<section id="webmention-container">
 	<h2>Webmentions</h2>
 	<div id="webmentions"></div>
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url h6 bold caps black" href="../posts/2018-01-23-garbage-collector.html">
+    <a class="u-url h6 bold caps black justify-around" href="../posts/2018-01-23-garbage-collector.html">
       Published <time class="dt-published">January 23, 2018</time>
-    </a> //
-    <a href="../" class="h6 bold caps black">Blog Home</a>
+    </a> 
+    <div class="justify-around">//</div>
+    <a href="../" class="h6 bold caps black justify-around">Blog Home</a>
 </footer>
 
 <a href="https://brid.gy/publish/twitter"></a>
@@ -125,7 +126,10 @@ if (container) {
 async function renderWebmentions(container) {
   const webmentions = await getWebmentions(window.location.href);
 
+  // Hide the webmentions section if there aren't any of them to show
   if (webmentions.length === 0) {
+    const section = document.getElementById("webmention-container");
+    section.style.display = 'none';
     return;
   }
 

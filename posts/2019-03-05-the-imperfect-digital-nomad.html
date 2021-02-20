@@ -31,16 +31,17 @@
 <p>I keep hearing from other nomads that the biggest downside to their lifestyle is not having a chance at long-term meaningful relationships, whether romantic or platonic. There are plenty of ways to meet people in a new area, with co-working spaces, hostels, Tinder and couch-surfing all bursting with fellow travellers. It can be tiring getting to know a whole set of new people every time you move places though, and while it can be rewarding to make new friends, you miss out on some aspects of a long-term relationship. Sometimes I just want to hang out and do something social without the pressure of a making a good first impression.</p>
 <p>The only tonic for this is spending more time with people you already know. With that goal and my location changing every month or so, I need to be able to plan my travel schedule in a way that overlaps as much as possible with people I already know. Of course, that is much easier said than done. All the nomads I know are constantly changing plans last minute, jumping continents, chasing seasons or only traveling some of the year. Its not really possible to keep in touch with everyone I would potentially want to see again by asking them about their travel schedule every few weeks.</p></div>
 
-<section>
+<section id="webmention-container">
 	<h2>Webmentions</h2>
 	<div id="webmentions"></div>
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url h6 bold caps black" href="../posts/2019-03-05-the-imperfect-digital-nomad.html">
+    <a class="u-url h6 bold caps black justify-around" href="../posts/2019-03-05-the-imperfect-digital-nomad.html">
       Published <time class="dt-published">March  5, 2019</time>
-    </a> //
-    <a href="../" class="h6 bold caps black">Blog Home</a>
+    </a> 
+    <div class="justify-around">//</div>
+    <a href="../" class="h6 bold caps black justify-around">Blog Home</a>
 </footer>
 
 <a href="https://brid.gy/publish/twitter"></a>
@@ -55,7 +56,10 @@ if (container) {
 async function renderWebmentions(container) {
   const webmentions = await getWebmentions(window.location.href);
 
+  // Hide the webmentions section if there aren't any of them to show
   if (webmentions.length === 0) {
+    const section = document.getElementById("webmention-container");
+    section.style.display = 'none';
     return;
   }
 

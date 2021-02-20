@@ -24,16 +24,17 @@
 <p>With software eating more and more of the world, we should be holding the programs we interact with to a higher standard of quality and correctness. And that starts with the foundations of the stack along with our philosophy and approach to wielding them.</p>
 <p>These trends lead me to be bullish on the future of Rust, particularly for projects with a high impact. I would prefer to align myself with innovative use of technology for the betterment of the planet than collect a big paycheck for building the next Facebook. The “Move fast and break things” mentality is how we ended up with an environment in peril and the antidote is making things to last.</p></div>
 
-<section>
+<section id="webmention-container">
 	<h2>Webmentions</h2>
 	<div id="webmentions"></div>
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url h6 bold caps black" href="../posts/2019-09-29-motivations.html">
+    <a class="u-url h6 bold caps black justify-around" href="../posts/2019-09-29-motivations.html">
       Published <time class="dt-published">September 29, 2019</time>
-    </a> //
-    <a href="../" class="h6 bold caps black">Blog Home</a>
+    </a> 
+    <div class="justify-around">//</div>
+    <a href="../" class="h6 bold caps black justify-around">Blog Home</a>
 </footer>
 
 <a href="https://brid.gy/publish/twitter"></a>
@@ -48,7 +49,10 @@ if (container) {
 async function renderWebmentions(container) {
   const webmentions = await getWebmentions(window.location.href);
 
+  // Hide the webmentions section if there aren't any of them to show
   if (webmentions.length === 0) {
+    const section = document.getElementById("webmention-container");
+    section.style.display = 'none';
     return;
   }
 

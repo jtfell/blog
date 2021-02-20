@@ -96,16 +96,17 @@
 <p>One simplifaction I’ve used throughout all of this code is that the allocation only goes upwards, never looking back at previously allocated groups. This is because I plan on using a garbage collection algorithm which moves all memory that is still in use to a fresh heap each time, allowing the allocation to start over at the new high-water mark and grow all over again.</p>
 <p>You can see the rest of the implementation including some debugging functions that print out the state <a href="https://github.com/jtfell/compiler-llvm/blob/master/lib/gc/lib.c">here</a>.</p></div>
 
-<section>
+<section id="webmention-container">
 	<h2>Webmentions</h2>
 	<div id="webmentions"></div>
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url h6 bold caps black" href="../posts/2018-03-09-low-level-gc.html">
+    <a class="u-url h6 bold caps black justify-around" href="../posts/2018-03-09-low-level-gc.html">
       Published <time class="dt-published">March  9, 2018</time>
-    </a> //
-    <a href="../" class="h6 bold caps black">Blog Home</a>
+    </a> 
+    <div class="justify-around">//</div>
+    <a href="../" class="h6 bold caps black justify-around">Blog Home</a>
 </footer>
 
 <a href="https://brid.gy/publish/twitter"></a>
@@ -120,7 +121,10 @@ if (container) {
 async function renderWebmentions(container) {
   const webmentions = await getWebmentions(window.location.href);
 
+  // Hide the webmentions section if there aren't any of them to show
   if (webmentions.length === 0) {
+    const section = document.getElementById("webmention-container");
+    section.style.display = 'none';
     return;
   }
 

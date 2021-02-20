@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Julian Fell - Algorithms and Regulation</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/pandoc.css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,700" rel="stylesheet" />
+    </head>
+    <body>
+      <header class="mx-auto px3 py4">
+        <a class="h0 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
+      </header>
+
+      <section class="mx-auto px3 py3 h-entry">
+        <h2 class="h2 caps p-name">Algorithms and Regulation</h2>
+        <span>
+          <div class="e-content"><p>The new media bargaining code in Australia includes a requirement that Facebook and Google</p>
+<blockquote>
+<p>provide 28 days’ notice of changes to algorithms and policies that will affect news content and advertising.</p>
+</blockquote>
+<p>At first read, it is an almost laughable ask. It smacks of a lack of understanding about how modern tech companies operate. These “algorithms” are complex systems with many inputs that have been in constant flux for years, powered by cutting edge AI.</p>
+<p>Putting aside the aeroplane-sized holes in this particular code, it raises an interesting question.</p>
+<blockquote>
+<p>How <strong>could</strong> transparency requirements work for algorithms?</p>
+</blockquote>
+<p>To explore this, we first need to agree on what algorithms actually are.</p>
+<p><img src="../images/algorithms-def.png" /></p>
+<p>This is a good starting point but doesn’t capture the reality of what is running on Google and Facebook’s servers. There are <a href="https://www.netflix.com/au/title/81254224">feature-length documentaries</a> that do a better job of this than I can.</p>
+<p>Bascially, a mix of human and machine intelligence ruthlessly optimise what you see next on your news feed to maximise your liklihood to scroll a little longer. Each decision about what to show is based on a huge number of factors, including user demographics and past behaviour on the platform.</p>
+<p>All that is to say that there is no single receipe or “set of steps” that can be tweaked to make a certain type of news article appear less frequently in everyone’s feed. It just isn’t that simple.</p>
+<p>But that’s not to say that transparency isn’t achievable in a less exact form.</p>
+<p>You could describe these systems in terms of their responses to a set of well-conceived questions that cover the full scope of their operation. Defining this set of questions is a difficult tasks, requiring deep technical capabilities as well as a big-picture perspective on achieving balance between the different stakeholders.</p>
+<p>There could be minimum requirements for some answers to ensure some basic fairness and public interest values. Some (under-developed and flawed) examples might include:</p>
+<ul>
+<li>2 new items from news organisations that have been liked by the user must be shown for every 3 paid items in their feed.</li>
+<li>Paid content can be a maximum of 50% of all items in any feed.</li>
+</ul>
+<p>Past results to this could then be used as a benchmark to give context to the results and judge if sufficient notice has been given for changes in them.</p>
+<p>Some flexibility would likely be needed for the technical requirements. A transparent process involving a representative set of stakeholders should have the ability to tweak these questions and minimum requirements to ensure balance between the interests of platforms, news organisations and the public.</p>
+<h4 id="some-open-questions">Some open questions</h4>
+<ul>
+<li>What dataset would be used for running the tests on? It would need to be consistent over time so the answers can be compared but also representative of data in the system as the content mix evolves.</li>
+<li>How would the framework for identifying misbehaviour work? Could individuals use it to submit claims?</li>
+<li>How could “experiments” and A/B tests be conducted in this framework? Would it be acceptable to allow users to be paid to opt-in to receiving (clearly identified) results from experimental algorithms?</li>
+</ul></div>
+
+<section id="webmention-container">
+	<h2>Webmentions</h2>
+	<div id="webmentions"></div>
+</section>
+
+<footer class="flex items-baseline max-width-4 mx-auto px3 py4">
+    <a class="u-url h6 bold caps black justify-around" href="../posts/2021-02-20-regulation-for-algorithms.html">
+      Published <time class="dt-published">February 20, 2021</time>
+    </a> 
+    <div class="justify-around">//</div>
+    <a href="../" class="h6 bold caps black justify-around">Blog Home</a>
+</footer>
+
+<a href="https://brid.gy/publish/twitter"></a>
+
+<script>
+const container = document.querySelector("#webmentions");
+
+if (container) {
+  renderWebmentions(container);
+}
+
+async function renderWebmentions(container) {
+  const webmentions = await getWebmentions(window.location.href);
+
+  // Hide the webmentions section if there aren't any of them to show
+  if (webmentions.length === 0) {
+    const section = document.getElementById("webmention-container");
+    section.style.display = 'none';
+    return;
+  }
+
+  const list = document.createElement("ul");
+  list.className = "webmentions";
+
+  webmentions.forEach(webmention => {
+    list.appendChild(renderWebmention(webmention));
+  });
+
+  container.appendChild(list);
+}
+
+function getWebmentions(target) {
+  return fetch('https://webmention.io/api/mentions.jf2?target=' + target)
+    .then(response => response.json())
+    .then(data => data.children);
+}
+
+function renderWebmention(webmention) {
+  const action = {
+    "in-reply-to": "replied",
+    "like-of": "liked",
+    "repost-of": "reposted",
+    "mention-of": "mentioned"
+  }[webmention["wm-property"]];
+
+  const rendered = document.importNode(
+    document.getElementById("webmention-template").content,
+    true
+  );
+
+  function set(selector, attribute, value) {
+    rendered.querySelector(selector)[attribute] = value;
+  }
+
+  set(".webmention-author", "href", webmention.author.url || webmention.url);
+  set(".webmention-author-avatar", "src", webmention.author.photo);
+  set(".webmention-author-avatar", "alt", 'Photo of ' + webmention.author.name);
+  set(".webmention-author-name", "textContent", webmention.author.name);
+  set(".webmention-action", "href", webmention.url);
+
+  set(
+    ".webmention-action",
+    "textContent",
+    action + ' on ' + webmention["wm-received"].substr(0, 10)
+  );
+
+  if (webmention.content) {
+    set(
+      ".webmention-content",
+      "innerHTML",
+      webmention.content.html || webmention.content.text
+    );
+  }
+
+  return rendered;
+}
+</script>
+
+        </span>
+      </section>
+    </body>
+
+    <style>
+
+      /* Lazy hacks for bad behaving elements */
+      .text-decoration-none:hover {
+        background-image: none;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      header {
+        padding-bottom: 0px !important;
+      }
+    </style>
+</html>
+
+

@@ -135,16 +135,17 @@ Pure:       ratio: 1.360, fit: 0.9170</code></pre>
 <p>Does this mean that Foundation is better than Bootstrap? You be the judge. It would be a little hasty to draw too many conclusions from these results without looking deeper into why certain frameworks do not strictly follow modular scales. Undoubtedly there are good reasons, edge cases or stylistic preferences. All I know is that I want to know what these are if I’m going to commit to them for a new project. If nothing else, finding answers to these questions might lend some insight into how to get the most out of your framework of choice.</p>
 <p>That’s all I have for now, you can take a look at my code <a href="https://github.com/jtfell/style-analytics">here</a>.</p></div>
 
-<section>
+<section id="webmention-container">
 	<h2>Webmentions</h2>
 	<div id="webmentions"></div>
 </section>
 
 <footer class="flex items-baseline max-width-4 mx-auto px3 py4">
-    <a class="u-url h6 bold caps black" href="../posts/2016-11-08-how-pretty-is-your-css.html">
+    <a class="u-url h6 bold caps black justify-around" href="../posts/2016-11-08-how-pretty-is-your-css.html">
       Published <time class="dt-published">November  8, 2016</time>
-    </a> //
-    <a href="../" class="h6 bold caps black">Blog Home</a>
+    </a> 
+    <div class="justify-around">//</div>
+    <a href="../" class="h6 bold caps black justify-around">Blog Home</a>
 </footer>
 
 <a href="https://brid.gy/publish/twitter"></a>
@@ -159,7 +160,10 @@ if (container) {
 async function renderWebmentions(container) {
   const webmentions = await getWebmentions(window.location.href);
 
+  // Hide the webmentions section if there aren't any of them to show
   if (webmentions.length === 0) {
+    const section = document.getElementById("webmention-container");
+    section.style.display = 'none';
     return;
   }
 
