@@ -538,6 +538,8 @@
 
 .items-stretch{ -webkit-box-align:stretch; -ms-flex-align:stretch; -ms-grid-row-align:stretch; align-items:stretch }
 
+.flex-grow { flex-grow: 1 }
+
 .self-start{ -ms-flex-item-align:start; align-self:flex-start }
 
 .self-end{ -ms-flex-item-align:end; align-self:flex-end }

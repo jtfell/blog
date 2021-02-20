@@ -4,13 +4,13 @@ title: Algorithms and Regulation
 
 The new media bargaining code in Australia includes a requirement that Facebook and Google
 
-> provide 28 days' notice of changes to algorithms and policies that will affect news content and advertising.
+> _provide 28 days' notice of changes to algorithms and policies that will affect news content and advertising._
 
 At first read, it is an almost laughable ask. It smacks of a lack of understanding about how modern tech companies operate. These "algorithms" are complex systems with many inputs that have been in constant flux for years, powered by cutting edge AI. 
 
 Putting aside the aeroplane-sized holes in this particular code, it raises an interesting question.
 
- > How **could** transparency requirements work for algorithms?
+### How **could** transparency requirements work for algorithms?
 
 To explore this, we first need to agree on what algorithms actually are.
 
@@ -35,7 +35,7 @@ Past results to this could then be used as a benchmark to give context to the re
 
 Some flexibility would likely be needed for the technical requirements. A transparent process involving a representative set of stakeholders should have the ability to tweak these questions and minimum requirements to ensure balance between the interests of platforms, news organisations and the public.
 
-#### Some open questions
+### Some open questions
 
 - What dataset would be used for running the tests on? It would need to be consistent over time so the answers can be compared but also representative of data in the system as the content mix evolves.
 - How would the framework for identifying misbehaviour work? Could individuals use it to submit claims?
