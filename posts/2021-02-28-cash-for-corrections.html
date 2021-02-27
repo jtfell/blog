@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Julian Fell - Cash For Corrections</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/pandoc.css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,700" rel="stylesheet" />
+    </head>
+    <body>
+      <header class="mx-auto px3 py4">
+        <a class="h0 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
+      </header>
+
+      <section class="mx-auto px3 py3 h-entry">
+        <h2 class="h2 caps p-name">Cash For Corrections</h2>
+        <span>
+          <div class="e-content"><p>Tech companies sometimes offer something called a “bug bounty” program. It’s basically the author of a software product making a formal promise.</p>
+<blockquote>
+<p><em>If someone finds a bug or security hole, they will be paid a reward.</em></p>
+</blockquote>
+<p>It’s a great practice, creating an incentive for researchers and hackers to find and disclose flaws in the software. It also incentivises the business to build a product with less bugs.</p>
+<p>Some big names like Google, Apple and Facebook have long running programs that have paid out millions of dollars over a number of years. Averting a serious security flaw is almost priceless for these big tech companies, both in terms of reputational and actual cost, so these programs are worth every dollar to them.</p>
+<p>Recently, I came across a different angle on this idea. Someone called <a href="https://savingjournalism.substack.com/">Jeremy Arnold</a> has put his own spin on the traditional bug bounty. His <a href="https://www.quora.com/q/thefilingcabinet/My-Updated-Cash-for-Corrections-Policy">Cash For Corrections Policy</a> offers monetary rewards for corrections. He makes a strong case for why it should be (and probably will eventually be) more common in the journalism industry.</p>
+<p>Its so easy to spread plausible-sounding lies on the internet that the facts are often lost in the deluge of garbage and fiction. A policy like this signals a serious commitment to correctness and truth. Similarly to a bug bounty, it both incentivises the writer to be more diligent and the reader to correct mistakes.</p>
+<p>If more writers and organisations operated in this way, it seems to me that the media ecosystem would be significantly healthier. Maybe this could be a first step towards media organisations taking action against misinformation and regaining the public’s trust.</p></div>
+
+<section id="webmention-container">
+	<h2>Webmentions</h2>
+	<div id="webmentions"></div>
+</section>
+
+<footer class="flex items-baseline max-width-4 mx-auto px3 py4">
+    <a class="u-url h6 bold caps black flex-grow" href="../posts/2021-02-28-cash-for-corrections.html">
+      Published <time class="dt-published">February 28, 2021</time>
+    </a> 
+    <div class="flex-grow">//</div>
+    <a href="../" class="h6 bold caps black flex-grow">Blog Home</a>
+</footer>
+
+<a href="https://brid.gy/publish/twitter"></a>
+
+<script>
+const container = document.querySelector("#webmentions");
+
+if (container) {
+  renderWebmentions(container);
+}
+
+async function renderWebmentions(container) {
+  const webmentions = await getWebmentions(window.location.href);
+
+  // Hide the webmentions section if there aren't any of them to show
+  if (webmentions.length === 0) {
+    const section = document.getElementById("webmention-container");
+    section.style.display = 'none';
+    return;
+  }
+
+  const list = document.createElement("ul");
+  list.className = "webmentions";
+
+  webmentions.forEach(webmention => {
+    list.appendChild(renderWebmention(webmention));
+  });
+
+  container.appendChild(list);
+}
+
+function getWebmentions(target) {
+  return fetch('https://webmention.io/api/mentions.jf2?target=' + target)
+    .then(response => response.json())
+    .then(data => data.children);
+}
+
+function renderWebmention(webmention) {
+  const action = {
+    "in-reply-to": "replied",
+    "like-of": "liked",
+    "repost-of": "reposted",
+    "mention-of": "mentioned"
+  }[webmention["wm-property"]];
+
+  const rendered = document.importNode(
+    document.getElementById("webmention-template").content,
+    true
+  );
+
+  function set(selector, attribute, value) {
+    rendered.querySelector(selector)[attribute] = value;
+  }
+
+  set(".webmention-author", "href", webmention.author.url || webmention.url);
+  set(".webmention-author-avatar", "src", webmention.author.photo);
+  set(".webmention-author-avatar", "alt", 'Photo of ' + webmention.author.name);
+  set(".webmention-author-name", "textContent", webmention.author.name);
+  set(".webmention-action", "href", webmention.url);
+
+  set(
+    ".webmention-action",
+    "textContent",
+    action + ' on ' + webmention["wm-received"].substr(0, 10)
+  );
+
+  if (webmention.content) {
+    set(
+      ".webmention-content",
+      "innerHTML",
+      webmention.content.html || webmention.content.text
+    );
+  }
+
+  return rendered;
+}
+</script>
+
+        </span>
+      </section>
+    </body>
+
+    <style>
+
+      /* Lazy hacks for bad behaving elements */
+      .text-decoration-none:hover {
+        background-image: none;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      header {
+        padding-bottom: 0px !important;
+      }
+    </style>
+</html>
+
+
