@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Julian Fell - Aggregating Emergency Alerts at The ABC</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/pandoc.css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,700" rel="stylesheet" />
+    </head>
+    <body>
+      <header class="mx-auto px3 py4">
+        <a class="h0 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
+      </header>
+
+      <section class="mx-auto px3 py3 h-entry">
+        <h2 class="h2 caps p-name">Aggregating Emergency Alerts at The ABC</h2>
+        <span>
+          <div class="e-content"><p>Read this post over on the <a href="https://developers.digital.abc.net.au/2021/04/09/aggregating-emergency-alerts/">ABC Emergency Digital Developers Blog</a>.</p></div>
+
+<section id="webmention-container">
+	<h2>Webmentions</h2>
+	<div id="webmentions"></div>
+</section>
+
+<footer class="flex items-baseline max-width-4 mx-auto px3 py4">
+    <a class="u-url h6 bold caps black flex-grow" href="../posts/2021-04-09-aggregating-emergency-alerts.html">
+      Published <time class="dt-published">April  9, 2021</time>
+    </a> 
+    <div class="flex-grow">//</div>
+    <a href="../" class="h6 bold caps black flex-grow">Blog Home</a>
+</footer>
+
+<a href="https://brid.gy/publish/twitter"></a>
+
+<script>
+const container = document.querySelector("#webmentions");
+
+if (container) {
+  renderWebmentions(container);
+}
+
+async function renderWebmentions(container) {
+  const webmentions = await getWebmentions(window.location.href);
+
+  // Hide the webmentions section if there aren't any of them to show
+  if (webmentions.length === 0) {
+    const section = document.getElementById("webmention-container");
+    section.style.display = 'none';
+    return;
+  }
+
+  const list = document.createElement("ul");
+  list.className = "webmentions";
+
+  webmentions.forEach(webmention => {
+    list.appendChild(renderWebmention(webmention));
+  });
+
+  container.appendChild(list);
+}
+
+function getWebmentions(target) {
+  return fetch('https://webmention.io/api/mentions.jf2?target=' + target)
+    .then(response => response.json())
+    .then(data => data.children);
+}
+
+function renderWebmention(webmention) {
+  const action = {
+    "in-reply-to": "replied",
+    "like-of": "liked",
+    "repost-of": "reposted",
+    "mention-of": "mentioned"
+  }[webmention["wm-property"]];
+
+  const rendered = document.importNode(
+    document.getElementById("webmention-template").content,
+    true
+  );
+
+  function set(selector, attribute, value) {
+    rendered.querySelector(selector)[attribute] = value;
+  }
+
+  set(".webmention-author", "href", webmention.author.url || webmention.url);
+  set(".webmention-author-avatar", "src", webmention.author.photo);
+  set(".webmention-author-avatar", "alt", 'Photo of ' + webmention.author.name);
+  set(".webmention-author-name", "textContent", webmention.author.name);
+  set(".webmention-action", "href", webmention.url);
+
+  set(
+    ".webmention-action",
+    "textContent",
+    action + ' on ' + webmention["wm-received"].substr(0, 10)
+  );
+
+  if (webmention.content) {
+    set(
+      ".webmention-content",
+      "innerHTML",
+      webmention.content.html || webmention.content.text
+    );
+  }
+
+  return rendered;
+}
+</script>
+
+        </span>
+      </section>
+    </body>
+
+    <style>
+
+      /* Lazy hacks for bad behaving elements */
+      .text-decoration-none:hover {
+        background-image: none;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      header {
+        padding-bottom: 0px !important;
+      }
+    </style>
+</html>
+
+
