@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Julian Fell - Testing Troubling Truths</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" href="../css/base.css" />
+        <link rel="stylesheet" type="text/css" href="../css/pandoc.css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,700" rel="stylesheet" />
+    </head>
+    <body>
+      <header class="mx-auto px3 py4">
+        <a class="h0 mb0 bold black text-decoration-none" href="https://jtfell.github.io">Julian Fell</a>
+      </header>
+
+      <section class="mx-auto px3 py3 h-entry">
+        <h2 class="h2 caps p-name">Testing Troubling Truths</h2>
+        <span>
+          <div class="e-content"><p>In response to proposing the first ever vaccine for smallpox in 1796, Edward Jenner was told by the medical authorities that he needed more proof that the science was legitimate. He needed to test his vaccine more thoroughly before it would be accepted.</p>
+<p>The story goes that he went on to test the vaccine on many more children, including his own, building an undeniable case that the science worked. Early critics were eventually convinced or drowned out by its incredible success and the vaccine became accepted and saw widespread use.</p>
+<p>The history of technological invention is littered with stories of experiments and tests. It is human nature to build trust in new things by testing how they react to our interrogations. This instinct to verify has been crystallised into the scientific method as we know it today.</p>
+<p><img src="../images/testing-programs.png" /></p>
+<p>A quick scroll through Twitter in 2021 reveals that the western world is unanimously concerned about a crisis of online misinformation. Behind every emotive headline, think pieces commiserate the death of trust in the media.</p>
+<p>When it comes to assigning responsibility though, there is less of a consensus. Descriptions become less vivid. The fog of war descends on the journalist, rendering their investigations futile against unknowable bad actors.</p>
+<p>There is almost always at least an allusion to AI and automation which hardly helps things. Regardless of whether the hazily defined villain turns out to be foreign states, trolls, the far right, the radical left or bot farms, the fear of misinformation is tightly linked to non-human authors.</p>
+<p>The lack of transparency around the source of facts and opinions on the internet further compounds this fear. Artificial intelligence obscures the already under discussed decision-making process into a mess of parameters and weightings.</p>
+<p>A fully automated system using AI can publish thousands of stories in an instant, regardless of their accuracy or truth. Trust is being eroded by inscrutable methods of writing, which are amplified by their immense scale.</p>
+<p><img src="../images/vaccine.png" /></p>
+<p>The COVID-19 vaccine rollout has gotten off to a rocky start in Australia for a confluence of reasons, with safety concerns and logistics prominently among them.</p>
+<p>Vaccinating the entire country is a complicated operation with many moving parts. If there is insufficient public trust in the vaccine being safe, the entire operation will be compromised and the vulnerable in our community will be at risk of the virus. Regardless of supply logistics, if there aren’t enough people willing to get the jab, the rollout will be a failure.</p>
+<p>Transparency goes a long way to letting skeptics and supporters engage in the debate. If there is an accessible way to experiment with the system they are expected to trust, an informed discussion can be had about doubts and legitimate concerns can be put in context. This is true for both the science behind vaccinations and the reporting on their development.</p></div>
+
+<section id="webmention-container">
+	<h2>Webmentions</h2>
+	<div id="webmentions"></div>
+</section>
+
+<footer class="flex items-baseline max-width-4 mx-auto px3 py4">
+    <a class="u-url h6 bold caps black flex-grow" href="../posts/2021-04-09-testing-troubling-truths.html">
+      Published <time class="dt-published">April  9, 2021</time>
+    </a> 
+    <div class="flex-grow">//</div>
+    <a href="../" class="h6 bold caps black flex-grow">Blog Home</a>
+</footer>
+
+<a href="https://brid.gy/publish/twitter"></a>
+
+<script>
+const container = document.querySelector("#webmentions");
+
+if (container) {
+  renderWebmentions(container);
+}
+
+async function renderWebmentions(container) {
+  const webmentions = await getWebmentions(window.location.href);
+
+  // Hide the webmentions section if there aren't any of them to show
+  if (webmentions.length === 0) {
+    const section = document.getElementById("webmention-container");
+    section.style.display = 'none';
+    return;
+  }
+
+  const list = document.createElement("ul");
+  list.className = "webmentions";
+
+  webmentions.forEach(webmention => {
+    list.appendChild(renderWebmention(webmention));
+  });
+
+  container.appendChild(list);
+}
+
+function getWebmentions(target) {
+  return fetch('https://webmention.io/api/mentions.jf2?target=' + target)
+    .then(response => response.json())
+    .then(data => data.children);
+}
+
+function renderWebmention(webmention) {
+  const action = {
+    "in-reply-to": "replied",
+    "like-of": "liked",
+    "repost-of": "reposted",
+    "mention-of": "mentioned"
+  }[webmention["wm-property"]];
+
+  const rendered = document.importNode(
+    document.getElementById("webmention-template").content,
+    true
+  );
+
+  function set(selector, attribute, value) {
+    rendered.querySelector(selector)[attribute] = value;
+  }
+
+  set(".webmention-author", "href", webmention.author.url || webmention.url);
+  set(".webmention-author-avatar", "src", webmention.author.photo);
+  set(".webmention-author-avatar", "alt", 'Photo of ' + webmention.author.name);
+  set(".webmention-author-name", "textContent", webmention.author.name);
+  set(".webmention-action", "href", webmention.url);
+
+  set(
+    ".webmention-action",
+    "textContent",
+    action + ' on ' + webmention["wm-received"].substr(0, 10)
+  );
+
+  if (webmention.content) {
+    set(
+      ".webmention-content",
+      "innerHTML",
+      webmention.content.html || webmention.content.text
+    );
+  }
+
+  return rendered;
+}
+</script>
+
+        </span>
+      </section>
+    </body>
+
+    <style>
+
+      /* Lazy hacks for bad behaving elements */
+      .text-decoration-none:hover {
+        background-image: none;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      header {
+        padding-bottom: 0px !important;
+      }
+    </style>
+</html>
+
+
