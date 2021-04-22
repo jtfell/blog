@@ -16,18 +16,18 @@ This idea appealed to us, but we lacked a framework of thinking for incorporatin
 
 ## Prototyping
 
-When ideating and making the design decisions that shape the structure of the conversation at a high level, we found that the key things to strive for were:
+When ideating and making the design decisions that shape the structure of the conversation at a high level, we found that the key things to strive for were
 
-Early feedback, particularly being able to actually interact with the design
-Focus on the happy path, concentrating on the immediate value to users
+- Early feedback, particularly being able to actually interact with the design
+- Emphasis on the happy path, concentrating on the immediate value to users
 
-The ability to design using a flowchart in [Voiceflow](https://www.voiceflow.com/) enabled us to visually understand the high-level design of the app while constantly testing our assumptions by interacting with the prototype. We were able to test our early designs on device and quickly validate assumptions in context and even on device.
+Designing using a flowchart in [Voiceflow](https://www.voiceflow.com/) enabled us to visually understand the high-level design of the app while constantly testing our assumptions by interacting with the prototype. We were able to test our early designs on device and quickly validate assumptions in context and even on device.
 
 ## Formalising the Desired Behaviour
 
-Past the prototyping phase, the focus turns to the finer details and continuing with Voiceflow presents some challenges. Voiceflow projects are unsuited to frame-based approaches and can quickly become unwieldy when implementing complex logic. Keeping the prototype in sync enough with the production app to be useful for experimenting with tweaks will also present a challenge as the design evolves.
+Past the prototyping phase, the focus naturally turns to the finer details and continuing with Voiceflow presents some challenges at this stage. Voiceflow projects are unsuited to frame-based approaches and can quickly become unwieldy when implementing complex logic. Keeping the prototype in sync enough with the production app to be useful for experimenting with tweaks will also present a challenge as the design evolves.
 
-For this reason, we decided to pivot to a rather different way of communicating the design of our app. Storyboards are suited to this way of thinking, but the task of writing and maintaining a complex set of user flows as a set of diagrams come with their own challenges.
+For this reason, we decided to pivot to a rather different way of communicating the design of our app. Storyboards are suited to this way of thinking, but the task of writing and maintaining a complex set of user flows as a set of diagrams come with their own challenges:
 
 - Identifying contradictions between separate storyboards
 - Validating that the implementation of the app aligns with the design
