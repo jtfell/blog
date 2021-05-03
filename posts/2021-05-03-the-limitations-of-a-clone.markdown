@@ -6,7 +6,7 @@ I was out walking the other morning and listening to a song that I've heard hund
 
 It might have been the buzz from the coffee, maybe it was just my mind wandering down the right thought at the exact moment it came on, but this morning a single line stood out so strikingly that I couldn't get it out of my head. I had to pause the track and really ponder it.
 
-> That you will ever know, the limitations of a clone
+> __That you will ever know, the limitations of a clone__
 
 King Krule practically spits it out, filling each word with brooding. Even without the context of the delivery or Mount Kimbie's moody production, it's a great line.
 
