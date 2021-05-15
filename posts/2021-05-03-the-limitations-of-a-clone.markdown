@@ -20,11 +20,11 @@ The identity of the original is still visible, but there is a new dimension, a n
 
 ---
 
-They say that the best stories are the ones that have stood the test of time. The continued existance of class inequality maintains many of DH Lawrence's works as classics in their original form.
+They say that the best stories are the ones that have stood the test of time. The continued existance of inequality in 2021 maintains the relevance of so many classics in their original form.
 
-The alien conditions of the industrial revolution in England allow us to commune with our ansestoral roots while our comfortable distance from the story allows us to seek out the themes with a little more objectivity and freedom. 
+The alien conditions of earlier times allow us to commune with our ansestoral roots while our comfortable distance from the narrative itself allows us to seek out the themes with a little more objectivity and freedom. 
 
-We can do more than just read and analyse things from the past though. Even stories that pre-date all living humans can be made new through a fresh coat of paint. Rather than just re-reading a fairy tale, it can be revised to better connect with a modern audience or it can be outright skewed into something gnarled and altogether abstract.
+We can do more than just read and analyse things from the past though. Even stories that pre-date all living humans can be made new through a fresh coat of paint. Rather than just re-reading an old story, it can be revised or outright skewed into something gnarled and altogether abstract.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/VhmAa19bMBI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
